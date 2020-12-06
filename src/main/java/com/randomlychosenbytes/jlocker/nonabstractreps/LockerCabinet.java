@@ -2,7 +2,6 @@ package com.randomlychosenbytes.jlocker.nonabstractreps;
 
 import java.util.List;
 
-@SuppressWarnings("unused")
 public class LockerCabinet extends javax.swing.JPanel {
     /**
      * If the object is manipulated another serialVersionUID will be assigned

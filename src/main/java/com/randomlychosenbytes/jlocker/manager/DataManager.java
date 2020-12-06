@@ -1,6 +1,5 @@
 package com.randomlychosenbytes.jlocker.manager;
 
-import com.randomlychosenbytes.jlocker.Main;
 import com.randomlychosenbytes.jlocker.nonabstractreps.Task;
 import com.randomlychosenbytes.jlocker.nonabstractreps.User;
 
@@ -8,7 +7,6 @@ import javax.crypto.SealedObject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
-import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeMap;
@@ -20,32 +18,7 @@ import java.util.TreeMap;
  */
 public class DataManager {
 
-    final private static DataManager instance = new DataManager();
-
-    public static DataManager getInstance() {
-        return instance;
-    }
-
-    private File resourceFile;
-
-    public DataManager() {
-        determineAppDir();
-    }
-
-    private void determineAppDir() {
-        URL url = Main.class.getProtectionDomain().getCodeSource().getLocation();
-        File sHomeDir = new File(url.getFile());
-
-        if (!sHomeDir.isDirectory()) {
-            sHomeDir = sHomeDir.getParentFile();
-        }
-
-        resourceFile = new File(sHomeDir, "jlocker.dat");
-
-        System.out.println("* program directory is: \"" + sHomeDir + "\"");
-    }
-
-    public OldData loadFromCustomFile(File file) {
+    public static OldData loadFromCustomFile(File file) {
 
         System.out.print("* reading " + file.getName() + "... ");
 

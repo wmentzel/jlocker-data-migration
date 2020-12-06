@@ -2,7 +2,6 @@ package com.randomlychosenbytes.jlocker.nonabstractreps;
 
 import javax.swing.*;
 
-@SuppressWarnings("unused")
 public class Locker extends JLabel implements java.io.Serializable, Cloneable {
     /**
      * If the object is manipulated another serialVersionUID will be assigned

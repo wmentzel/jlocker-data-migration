@@ -2,7 +2,6 @@ package com.randomlychosenbytes.jlocker.nonabstractreps;
 
 import java.util.List;
 
-@SuppressWarnings("unused")
 public class Floor extends Entity {
     /**
      * If the object is manipulated another serialVersionUID will be assigned

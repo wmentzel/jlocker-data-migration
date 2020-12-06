@@ -1,6 +1,5 @@
 package com.randomlychosenbytes.jlocker.nonabstractreps;
 
-@SuppressWarnings("unused")
 public class Task implements java.io.Serializable {
     /**
      * If the object is manipulated another serialVersionUID will be assigned

@@ -9,7 +9,6 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-@SuppressWarnings("unused")
 public class User extends Entity {
     /**
      * If the object is manipulated another serialVersionUID will be assigned
@@ -46,8 +45,8 @@ public class User extends Entity {
         }
     }
 
-    private SecretKey decryptKeyWithString(byte[] encryptedKey) // Key is saved as string
-    {
+    // Key is saved as string
+    private SecretKey decryptKeyWithString(byte[] encryptedKey) {
         try {
             Cipher dcipher = Cipher.getInstance("DES");
 

@@ -1,6 +1,4 @@
-import com.randomlychosenbytes.jlocker.Main;
 import com.randomlychosenbytes.jlocker.abstractreps.ManagementUnit;
-import com.randomlychosenbytes.jlocker.manager.DataManager;
 import com.randomlychosenbytes.jlocker.manager.OldData;
 import com.randomlychosenbytes.jlocker.manager.SecurityManager;
 import com.randomlychosenbytes.jlocker.nonabstractreps.*;
@@ -10,10 +8,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
 import java.io.File;
-import java.net.URL;
 import java.util.List;
 import java.util.TreeMap;
 
+import static com.randomlychosenbytes.jlocker.manager.DataManager.loadFromCustomFile;
+import static com.randomlychosenbytes.jlocker.manager.Util.getAppDir;
 import static junit.framework.TestCase.*;
 
 @RunWith(BlockJUnit4ClassRunner.class)
@@ -28,13 +27,10 @@ public class DataMigrationTest {
 
     @Before
     public void setup() {
-        DataManager dataManager = DataManager.getInstance();
 
-        URL codeLocationUrl = Main.class.getProtectionDomain().getCodeSource().getLocation();
+        File jlockerDatFile = new File(getAppDir(), "src/test/data/jlocker.dat");
 
-        File jlockerDatFile = new File(new File(codeLocationUrl.getFile()).getParentFile().getParentFile(), "src/test/data/jlocker.dat");
-
-        OldData oldData = dataManager.loadFromCustomFile(jlockerDatFile);
+        OldData oldData = loadFromCustomFile(jlockerDatFile);
 
         assertNotNull("Could not load jlocker.dat", oldData);
 
@@ -57,7 +53,7 @@ public class DataMigrationTest {
         tasks = oldData.tasks;
         settings = oldData.settings;
 
-        mainManagementUnit = buildings.get(0).getFloors().get(0).walks.get(0).mus.get(4);
+        mainManagementUnit = buildings.get(0).floors.get(0).walks.get(0).mus.get(4);
     }
 
     @Test
@@ -73,15 +69,15 @@ public class DataMigrationTest {
 
     @Test
     public void floorNamesShouldMatch() {
-        assertEquals("ground floor", buildings.get(0).getFloors().get(0).sName);
-        assertEquals("1st floor", buildings.get(0).getFloors().get(1).sName);
-        assertEquals("-", buildings.get(1).getFloors().get(0).sName);
+        assertEquals("ground floor", buildings.get(0).floors.get(0).sName);
+        assertEquals("1st floor", buildings.get(0).floors.get(1).sName);
+        assertEquals("-", buildings.get(1).floors.get(0).sName);
     }
 
     @Test
     public void walkNamesShouldMatch() {
-        assertEquals("main walk", buildings.get(0).getFloors().get(0).walks.get(0).sName);
-        assertEquals("-", buildings.get(1).getFloors().get(0).walks.get(0).sName);
+        assertEquals("main walk", buildings.get(0).floors.get(0).walks.get(0).sName);
+        assertEquals("-", buildings.get(1).floors.get(0).walks.get(0).sName);
     }
 
     @Test
@@ -107,5 +103,14 @@ public class DataMigrationTest {
         assertEquals(50, locker.iPrevAmount);
         assertEquals(false, locker.isOutOfOrder);
         assertEquals(true, locker.hasContract);
+    }
+
+    @Test
+    public void tasksShouldMatch() {
+        assertEquals("This is the 1st task!", tasks.get(0).sDescription);
+        assertEquals(true, tasks.get(0).isDone);
+
+        assertEquals("This is the 2nd task!", tasks.get(1).sDescription);
+        assertEquals(false, tasks.get(1).isDone);
     }
 }
