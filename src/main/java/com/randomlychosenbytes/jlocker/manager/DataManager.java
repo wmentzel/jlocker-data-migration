@@ -1,6 +1,6 @@
 package com.randomlychosenbytes.jlocker.manager;
 
-import com.randomlychosenbytes.jlocker.main.MainFrame;
+import com.randomlychosenbytes.jlocker.Main;
 import com.randomlychosenbytes.jlocker.nonabstractreps.Task;
 import com.randomlychosenbytes.jlocker.nonabstractreps.User;
 
@@ -33,7 +33,7 @@ public class DataManager {
     }
 
     private void determineAppDir() {
-        URL url = MainFrame.class.getProtectionDomain().getCodeSource().getLocation();
+        URL url = Main.class.getProtectionDomain().getCodeSource().getLocation();
         File sHomeDir = new File(url.getFile());
 
         if (!sHomeDir.isDirectory()) {
