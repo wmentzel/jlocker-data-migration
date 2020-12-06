@@ -10,14 +10,5 @@ public class Floor extends Entity {
      * by the programmer.
      */
     private static final long serialVersionUID = 5477487009397387778L;
-
-    private List<Walk> walks;
-
-    public List<Walk> getWalkList() {
-        return walks;
-    }
-
-    public List<Walk> getWalks() {
-        return walks;
-    }
+    public List<Walk> walks;
 }

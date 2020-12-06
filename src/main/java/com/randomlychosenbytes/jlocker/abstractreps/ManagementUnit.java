@@ -8,9 +8,9 @@ import com.randomlychosenbytes.jlocker.nonabstractreps.Staircase;
 public class ManagementUnit extends javax.swing.JPanel {
     private static final long serialVersionUID = -8054374141198601700L;
 
-    private LockerCabinet cabinet;
-    private Room room;
-    private Staircase staircase;
+    public LockerCabinet cabinet;
+    public Room room;
+    public Staircase staircase;
 
     public int mType;
     public static final int ROOM = 0;

@@ -10,5 +10,5 @@ public class LockerCabinet extends javax.swing.JPanel {
      * by the programmer.
      */
     private static final long serialVersionUID = 3694059109999196202L;
-    private List<Locker> lockers;
+    public List<Locker> lockers;
 }

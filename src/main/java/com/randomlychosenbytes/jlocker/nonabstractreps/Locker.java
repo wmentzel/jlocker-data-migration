@@ -11,29 +11,21 @@ public class Locker extends JLabel implements java.io.Serializable, Cloneable {
      */
     private static final long serialVersionUID = 7707447616883782260L;
 
-    private String sID;
-    private String sSirName;
-    private String sName;
-    private int iSize;
-    private String sClass;
-    private String sFrom;
-    private String sUntil;
-    private boolean hasContract;
-    private int iMoney;
-    private int iPrevAmount;
-    private boolean isOutOfOrder;
-    private String sLock;
-    private String sNote;
-    private Boolean isSelected;
+    public String sID;
+    public String sSirName;
+    public String sName;
+    public int iSize;
+    public String sClass;
+    public String sFrom;
+    public String sUntil;
+    public boolean hasContract;
+    public int iMoney;
+    public int iPrevAmount;
+    public boolean isOutOfOrder;
+    public String sLock;
+    public String sNote;
+    public Boolean isSelected;
 
     private int iCurrentCodeIndex;
     private byte encCodes[][];
-
-    public String getNote() {
-        return sNote;
-    }
-
-    public boolean isFree() {
-        return sName.equals("");
-    }
 }

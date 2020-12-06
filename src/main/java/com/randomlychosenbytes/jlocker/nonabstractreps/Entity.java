@@ -8,15 +8,5 @@ public class Entity implements java.io.Serializable {
      */
     private static final long serialVersionUID = 8606236005570624210L;
 
-    public Entity() {
-    }
-
-    protected String sName;
-
-    public void setName(String newname) {
-        sName = newname;
-    }
-    public String getName() {
-        return sName;
-    }
+    public String sName;
 }

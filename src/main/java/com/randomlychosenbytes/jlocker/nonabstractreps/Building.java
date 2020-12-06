@@ -1,6 +1,5 @@
 package com.randomlychosenbytes.jlocker.nonabstractreps;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -15,21 +14,6 @@ public class Building extends Entity {
     private String notes;
     private List<Floor> floors;
 
-    public Building(String name, String notes) {
-        sName = name;
-        this.notes = notes;
-        floors = new LinkedList<>();
-    }
-
-    public Building(String name) {
-        sName = name;
-        this.notes = "";
-        floors = new LinkedList<>();
-    }
-
-    public Building() {
-    }
-
     public void setNotes(String notes) {
         this.notes = notes;
     }
@@ -40,10 +24,6 @@ public class Building extends Entity {
 
     public String getNotes() {
         return notes;
-    }
-
-    public List<Floor> getFloorList() {
-        return floors;
     }
 
     public List<Floor> getFloors() {
