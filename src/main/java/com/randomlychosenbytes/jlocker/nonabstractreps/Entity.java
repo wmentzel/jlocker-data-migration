@@ -13,25 +13,10 @@ public class Entity implements java.io.Serializable {
 
     protected String sName;
 
-    /* *************************************************************************
-     * Setter
-     **************************************************************************/
     public void setName(String newname) {
         sName = newname;
     }
-
-    public void setSName(String newname) {
-        sName = newname;
-    }
-
-    /* *************************************************************************
-     * Getter
-     **************************************************************************/
     public String getName() {
-        return sName;
-    }
-
-    public String getSName() {
         return sName;
     }
 }

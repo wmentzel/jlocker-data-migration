@@ -1,8 +1,6 @@
 package com.randomlychosenbytes.jlocker.nonabstractreps;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
+@SuppressWarnings("unused")
 public class Task implements java.io.Serializable {
     /**
      * If the object is manipulated another serialVersionUID will be assigned
@@ -15,23 +13,9 @@ public class Task implements java.io.Serializable {
     private boolean isDone;
     private String sDate;
 
-    public Task(String description) {
-        sDescription = description;
-        isDone = false;
-
-        Calendar today = new GregorianCalendar();
-
-        sDate = String.format("%02d.%02d.%02d", today.get(Calendar.DATE),
-                today.get(Calendar.MONTH) + 1,
-                today.get(Calendar.YEAR));
-    }
-
     public Task() {
     }
 
-    /* *************************************************************************
-        Getter
-    ***************************************************************************/
     public String getSDate() {
         return sDate;
     }
@@ -44,9 +28,6 @@ public class Task implements java.io.Serializable {
         return isDone;
     }
 
-    /* *************************************************************************
-        Setter
-    ***************************************************************************/
     public void setSDate(String sDate) {
         this.sDate = sDate;
     }

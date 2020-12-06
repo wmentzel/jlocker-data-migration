@@ -9,11 +9,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-/**
- * Represents a User of the program. There are two different kinds a the moment
- * a restricted user and a super user. The super user can do everything the
- * restricted user can, plus he can view/edit the locker codes.
- */
+@SuppressWarnings("unused")
 public class User extends Entity {
     /**
      * If the object is manipulated another serialVersionUID will be assigned
@@ -32,47 +28,6 @@ public class User extends Entity {
     transient private static SecretKey decUserMasterKey = null; // no static, no initialization, add transient
     transient private SecretKey decSuperUMasterKey;
     transient private String decUserPW;
-
-    public User() {
-    }
-
-    public User(String name, String password, SecretKey ukey) {
-        sName = name;
-        decUserPW = password;
-        isSuperUser = false;
-        sHash = new SecurityManager().getHash(password.getBytes()); // MD5 hash
-
-        decUserMasterKey = ukey;
-        encUserMasterKey = EncryptKeyWithString(decUserMasterKey);
-
-        decSuperUMasterKey = null;
-        encSuperUMasterKey = null;
-    }
-
-    public User(String name, String password) {
-        sName = name;
-        decUserPW = password;
-        isSuperUser = true;
-        sHash = new SecurityManager().getHash(password.getBytes()); // MD5 hash
-
-        //
-        // Generate master key(s)
-        //
-
-        try {
-            // everyone has at least this passwort.
-            // it's used to encrypt/decrypt the buildings object
-            decUserMasterKey = KeyGenerator.getInstance("DES").generateKey();
-            encUserMasterKey = EncryptKeyWithString(decUserMasterKey);
-
-            // only super users have this variables initialized
-            // this key is used to encrypt/decrypt the locker codes
-            decSuperUMasterKey = KeyGenerator.getInstance("DES").generateKey();
-            encSuperUMasterKey = EncryptKeyWithString(decSuperUMasterKey);
-        } catch (NoSuchAlgorithmException ex) {
-            System.out.println("*** Executing User Constructor... failed");
-        }
-    }
 
     public boolean isPasswordCorrect(String pw) {
         if (new SecurityManager().getHash(pw.getBytes()).equals(sHash)) {
@@ -129,11 +84,6 @@ public class User extends Entity {
 
         return null;
     }
-    
-    /* *************************************************************************
-        Getter
-    ***************************************************************************/
-
 
     public String getUserPW() {
         return decUserPW;
@@ -163,9 +113,6 @@ public class User extends Entity {
         return sHash;
     }
 
-    /* *************************************************************************
-        Setter
-    ***************************************************************************/
     public void setCurrentUserPW(String pw) {
         decUserPW = pw;
     }

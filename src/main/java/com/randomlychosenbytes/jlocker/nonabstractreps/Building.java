@@ -3,6 +3,7 @@ package com.randomlychosenbytes.jlocker.nonabstractreps;
 import java.util.LinkedList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class Building extends Entity {
     /**
      * If the object is manipulated another serialVersionUID will be assigned
@@ -29,9 +30,6 @@ public class Building extends Entity {
     public Building() {
     }
 
-    /* *************************************************************************
-     * Setter
-     **************************************************************************/
     public void setNotes(String notes) {
         this.notes = notes;
     }
@@ -40,27 +38,8 @@ public class Building extends Entity {
         this.floors = floors;
     }
 
-    /* *************************************************************************
-     * Getter
-     **************************************************************************/
-
     public String getNotes() {
         return notes;
-    }
-
-    /**
-     * Determines whether or not the floor number is unique.
-     */
-    public boolean isFloorNameUnique(String name) {
-        int iSize = floors.size();
-
-        for (int i = 0; i < iSize; i++) {
-            if (((Floor) floors.get(i)).getName().equals(name)) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     public List<Floor> getFloorList() {

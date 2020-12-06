@@ -63,12 +63,6 @@ public class SecurityManager {
         }
     }
 
-    public static SealedObject encryptObject(byte o[], SecretKey key) throws Exception {
-        Cipher ecipher = Cipher.getInstance("DES");
-        ecipher.init(Cipher.ENCRYPT_MODE, key);
-        return new SealedObject(o, ecipher);
-    }
-
     private static byte[] decryptObject(SealedObject so, SecretKey key) throws Exception {
         Cipher dcipher = Cipher.getInstance("DES");
         dcipher.init(Cipher.DECRYPT_MODE, key);
