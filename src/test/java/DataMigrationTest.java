@@ -1,7 +1,6 @@
-import com.randomlychosenbytes.jlocker.abstractreps.ManagementUnit;
-import com.randomlychosenbytes.jlocker.manager.OldData;
-import com.randomlychosenbytes.jlocker.manager.SecurityManager;
-import com.randomlychosenbytes.jlocker.nonabstractreps.*;
+import abstractreps.ManagementUnit;
+import nonabstractreps.SecurityManager;
+import nonabstractreps.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,8 +10,6 @@ import java.io.File;
 import java.util.List;
 import java.util.TreeMap;
 
-import static com.randomlychosenbytes.jlocker.manager.DataManager.loadFromCustomFile;
-import static com.randomlychosenbytes.jlocker.manager.Util.getAppDir;
 import static junit.framework.TestCase.*;
 
 @RunWith(BlockJUnit4ClassRunner.class)
@@ -28,11 +25,11 @@ public class DataMigrationTest {
     @Before
     public void setup() {
 
-        File jlockerDatFile = new File(getAppDir(), "src/test/data/jlocker.dat");
+        File jlockerDatFile = new File(Util.getAppDir(), "src/test/data/jlocker.dat");
 
-        OldData oldData = loadFromCustomFile(jlockerDatFile);
+        OldData oldData = DataManager.loadFromCustomFile(jlockerDatFile);
 
-        assertNotNull("Could not load jlocker.dat", oldData);
+        assertNotNull("Could not load locker.dat", oldData);
 
         assertEquals("There should be exactly two users.", oldData.users.size(), 2);
 
@@ -62,6 +59,33 @@ public class DataMigrationTest {
     }
 
     @Test
+    public void numberOfFloorsShouldBeCorrect() {
+        assertEquals(2, buildings.get(0).floors.size());
+        assertEquals(1, buildings.get(1).floors.size());
+    }
+
+    @Test
+    public void numberOfWalksShouldBeCorrect() {
+        assertEquals(2, buildings.get(0).floors.get(0).walks.size());
+        assertEquals(1, buildings.get(0).floors.get(1).walks.size());
+        assertEquals(1, buildings.get(1).floors.get(0).walks.size());
+    }
+
+    @Test
+    public void numberOfManagementUnitsShouldBeCorrect() {
+        assertEquals(5, buildings.get(0).floors.get(0).walks.get(0).mus.size());
+    }
+
+    @Test
+    public void numberOfLockersShouldBeCorrect() {
+        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).mus.get(0).cabinet.lockers.size());
+        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).mus.get(1).cabinet.lockers.size());
+        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).mus.get(2).cabinet.lockers.size());
+        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).mus.get(3).cabinet.lockers.size());
+        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).mus.get(4).cabinet.lockers.size());
+    }
+
+    @Test
     public void buildingNamesShouldMatch() {
         assertEquals("main building", buildings.get(0).sName);
         assertEquals("second building", buildings.get(1).sName);
@@ -71,13 +95,15 @@ public class DataMigrationTest {
     public void floorNamesShouldMatch() {
         assertEquals("ground floor", buildings.get(0).floors.get(0).sName);
         assertEquals("1st floor", buildings.get(0).floors.get(1).sName);
-        assertEquals("-", buildings.get(1).floors.get(0).sName);
+        assertEquals("ground floor", buildings.get(1).floors.get(0).sName);
     }
 
     @Test
     public void walkNamesShouldMatch() {
         assertEquals("main walk", buildings.get(0).floors.get(0).walks.get(0).sName);
-        assertEquals("-", buildings.get(1).floors.get(0).walks.get(0).sName);
+        assertEquals("second walk", buildings.get(0).floors.get(0).walks.get(1).sName);
+        assertEquals("-", buildings.get(0).floors.get(1).walks.get(0).sName);
+        assertEquals("main walk", buildings.get(1).floors.get(0).walks.get(0).sName);
     }
 
     @Test
@@ -98,7 +124,7 @@ public class DataMigrationTest {
         assertEquals("This is some note!", locker.sNote);
         assertEquals("01.01.2020", locker.sFrom);
         assertEquals("01.01.2021", locker.sUntil);
-        assertEquals("12345", locker.sLock);
+        assertEquals("12-34-56", locker.sLock);
         assertEquals(150, locker.iMoney);
         assertEquals(50, locker.iPrevAmount);
         assertEquals(false, locker.isOutOfOrder);
