@@ -17,7 +17,7 @@ public class Settings {
     public List<Integer> lockerMinSizes;
 
     public Settings() {
-        List minSizes = new ArrayList<Integer>();
+        List<Integer> minSizes = new ArrayList<>();
         minSizes.add(0);
         minSizes.add(0);
         minSizes.add(140);

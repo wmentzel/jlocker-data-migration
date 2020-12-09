@@ -1,5 +1,4 @@
 import abstractreps.ManagementUnit;
-import nonabstractreps.SecurityManager;
 import nonabstractreps.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +9,7 @@ import java.io.File;
 import java.util.List;
 import java.util.TreeMap;
 
-import static junit.framework.TestCase.*;
+import static junit.framework.TestCase.assertEquals;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class DataMigrationTest {
@@ -26,30 +25,12 @@ public class DataMigrationTest {
     public void setup() {
 
         File jlockerDatFile = new File(Util.getAppDir(), "src/test/data/jlocker.dat");
+        OldData oldData = OldFormatUtil.loadData(jlockerDatFile, "11111111", "22222222");
 
-        OldData oldData = DataManager.loadFromCustomFile(jlockerDatFile);
-
-        assertNotNull("Could not load locker.dat", oldData);
-
-        assertEquals("There should be exactly two users.", oldData.users.size(), 2);
-
-        User superUser = oldData.users.get(0);
-        User limitedUser = oldData.users.get(1);
-
-        assertTrue("Super user passwort does not match", superUser.isPasswordCorrect("11111111"));
-        assertTrue("Limited user passwort does not match", limitedUser.isPasswordCorrect("22222222"));
-
-        buildings = SecurityManager.unsealAndDeserializeBuildings(
-                oldData.sealedBuildingsObject,
-                User.decUserMasterKey
-        );
-
-        assertNotNull("Could not decrypt buildings with user password", buildings);
-
+        buildings = oldData.buildings;
         users = oldData.users;
         tasks = oldData.tasks;
         settings = oldData.settings;
-
         mainManagementUnit = buildings.get(0).floors.get(0).walks.get(0).mus.get(4);
     }
 
