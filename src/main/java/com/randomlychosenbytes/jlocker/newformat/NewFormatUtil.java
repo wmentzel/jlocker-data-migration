@@ -20,9 +20,12 @@ import java.util.TreeMap;
 
 public class NewFormatUtil {
 
+    private NewFormatUtil() {
+    }
+
     private static final String cryptoAlgorithmName = "DES";
 
-    private void saveData(
+    public static void saveData(
             File file,
             String superUserPassword,
             String restrictedUserPassword,
@@ -31,8 +34,6 @@ public class NewFormatUtil {
             List<Task> tasks,
             List<User> users
     ) {
-
-        System.out.print("* saving " + file.getName() + "... ");
 
         try {
 
@@ -62,11 +63,8 @@ public class NewFormatUtil {
                                 superUser.getUserMasterKey()
                         )
                 ), writer);
-
-                System.out.println("successful");
             }
         } catch (Exception ex) {
-            System.out.println("failed");
             ex.printStackTrace();
         }
     }

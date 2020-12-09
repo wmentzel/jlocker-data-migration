@@ -18,6 +18,9 @@ import java.util.TreeMap;
  */
 public class OldFormatUtil {
 
+    private OldFormatUtil() {
+    }
+
     public static OldData loadData(File jlockerDatFile, String superUserPassword, String limitedUserPassword) {
 
         List<User> users;
