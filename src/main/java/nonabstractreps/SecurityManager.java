@@ -1,6 +1,4 @@
-package com.randomlychosenbytes.jlocker.manager;
-
-import com.randomlychosenbytes.jlocker.nonabstractreps.Building;
+package nonabstractreps;
 
 import javax.crypto.Cipher;
 import javax.crypto.SealedObject;
@@ -13,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * The SecurityManager class handles everything regarding encryption and
+ * The nonabstractreps.SecurityManager class handles everything regarding encryption and
  * decryption.
  */
 public class SecurityManager {
@@ -27,7 +25,7 @@ public class SecurityManager {
 
             return new BigInteger(1, m.digest()).toString(16);
         } catch (NoSuchAlgorithmException e) {
-            System.err.println("SecurityManager.getHash  failed!");
+            System.err.println("nonabstractreps.SecurityManager.getHash  failed!");
         }
 
         return "";

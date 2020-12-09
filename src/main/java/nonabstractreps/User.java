@@ -1,6 +1,4 @@
-package com.randomlychosenbytes.jlocker.nonabstractreps;
-
-import com.randomlychosenbytes.jlocker.manager.SecurityManager;
+package nonabstractreps;
 
 import javax.crypto.*;
 import javax.crypto.spec.DESKeySpec;

@@ -1,4 +1,4 @@
-package com.randomlychosenbytes.jlocker.nonabstractreps;
+package nonabstractreps;
 
 import java.util.List;
 

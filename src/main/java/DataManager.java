@@ -1,7 +1,5 @@
-package com.randomlychosenbytes.jlocker.manager;
-
-import com.randomlychosenbytes.jlocker.nonabstractreps.Task;
-import com.randomlychosenbytes.jlocker.nonabstractreps.User;
+import nonabstractreps.Task;
+import nonabstractreps.User;
 
 import javax.crypto.SealedObject;
 import java.io.File;

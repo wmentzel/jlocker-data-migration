@@ -1,6 +1,6 @@
-package com.randomlychosenbytes.jlocker.nonabstractreps;
+package nonabstractreps;
 
-import com.randomlychosenbytes.jlocker.abstractreps.ManagementUnit;
+import abstractreps.ManagementUnit;
 
 import java.util.List;
 

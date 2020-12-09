@@ -1,8 +1,8 @@
-package com.randomlychosenbytes.jlocker.abstractreps;
+package abstractreps;
 
-import com.randomlychosenbytes.jlocker.nonabstractreps.LockerCabinet;
-import com.randomlychosenbytes.jlocker.nonabstractreps.Room;
-import com.randomlychosenbytes.jlocker.nonabstractreps.Staircase;
+import nonabstractreps.LockerCabinet;
+import nonabstractreps.Room;
+import nonabstractreps.Staircase;
 
 @SuppressWarnings("unused")
 public class ManagementUnit extends javax.swing.JPanel {

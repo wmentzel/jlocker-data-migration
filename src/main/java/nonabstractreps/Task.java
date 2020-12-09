@@ -1,4 +1,4 @@
-package com.randomlychosenbytes.jlocker.nonabstractreps;
+package nonabstractreps;
 
 public class Task implements java.io.Serializable {
     /**
