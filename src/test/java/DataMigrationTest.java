@@ -79,8 +79,6 @@ public class DataMigrationTest {
 
     @Test
     public void numberOfLockersShouldBeCorrect() {
-        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(0).lockerCabinet.lockers.size());
-        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(1).lockerCabinet.lockers.size());
         assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(2).lockerCabinet.lockers.size());
         assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(3).lockerCabinet.lockers.size());
         assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(4).lockerCabinet.lockers.size());
@@ -131,9 +129,21 @@ public class DataMigrationTest {
     }
 
     @Test
+    public void roomDataShouldMatch() {
+        Room room = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(1).room;
+
+        assertEquals(room.name, "Some Classroom");
+        assertEquals(room.schoolClassName, "12");
+    }
+
+    @Test
     public void lockerTypesShouldMatch() {
         assertEquals(mainManagementUnit.type, ManagementUnit.LOCKERCOLUMN);
         assertEquals(buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(3).type, ManagementUnit.LOCKERCOLUMN);
+        assertEquals(buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(2).type, ManagementUnit.LOCKERCOLUMN);
+
+        assertEquals(buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(1).type, ManagementUnit.ROOM);
+        assertEquals(buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(0).type, ManagementUnit.STAIRCASE);
     }
 
     @Test

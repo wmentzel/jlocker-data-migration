@@ -161,7 +161,7 @@ public class Converter {
                                 Room room = new Room();
 
                                 room.name = oldManagementUnit.room.sName;
-                                room.schoolClassName = oldManagementUnit.room.sName;
+                                room.schoolClassName = oldManagementUnit.room.sClass;
 
                                 newManagementUnit.room = room;
                                 break;
