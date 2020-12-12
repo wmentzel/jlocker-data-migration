@@ -5,9 +5,6 @@ public class Util {
     public static File getAppDir() {
         URL url = Main.class.getProtectionDomain().getCodeSource().getLocation();
         File codeRootDir = new File(url.getFile()).getParentFile().getParentFile();
-
-        System.out.println("* program directory is: \"" + codeRootDir.getAbsolutePath() + "\"");
-
         return codeRootDir;
     }
 }

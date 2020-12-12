@@ -13,10 +13,13 @@ public class Main {
         String superUserPassword = "11111111";
         String limitedUserPassword = "22222222";
 
-        File oldJLockerDatFile = new File(Util.getAppDir(), "src/test/data/jlocker.dat");
+        File appDir = Util.getAppDir();
+        System.out.println("* program directory is: \"" + appDir.getAbsolutePath() + "\"");
+
+        File oldJLockerDatFile = new File(appDir, "src/test/data/jlocker.dat");
         OldData oldData = OldFormatUtil.loadData(oldJLockerDatFile, superUserPassword, limitedUserPassword);
 
-        File newJLockerDatFile = new File(Util.getAppDir(), "src/test/data/jlocker.json");
+        File newJLockerDatFile = new File(appDir, "src/test/data/jlocker.json");
 
         NewData newData = Converter.convert(oldData, superUserPassword, limitedUserPassword, oldData.users.get(0).getSecretKeys(superUserPassword).getX());
 
@@ -29,5 +32,4 @@ public class Main {
                 newData.restrictedUser
         );
     }
-
 }
