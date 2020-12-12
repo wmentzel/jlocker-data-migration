@@ -42,7 +42,7 @@ public class NewFormatUtil {
             try (Writer writer = new FileWriter(file)) {
 
                 gson.toJson(new JsonRoot(
-                        encrypt(gson.toJson(buildings), superUser.getUserMasterKey()),
+                        encrypt(gson.toJson(buildings), superUser.getUserMasterKey(superUserPassword)),
                         settings,
                         tasks,
                         superUser,
@@ -114,7 +114,7 @@ public class NewFormatUtil {
         }
     }
 
-    private static String bytesToBase64String(byte[] bytes) {
+    public static String bytesToBase64String(byte[] bytes) {
         return DatatypeConverter.printBase64Binary(bytes);
     }
 

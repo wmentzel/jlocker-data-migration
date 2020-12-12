@@ -7,6 +7,8 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
+import static com.randomlychosenbytes.jlocker.newformat.NewFormatUtil.getHash;
+
 public class User extends Entity {
     /**
      * If the object is manipulated another serialVersionUID will be assigned
@@ -21,34 +23,28 @@ public class User extends Entity {
     private byte[] encUserMasterKey;
     private byte[] encSuperUMasterKey;
 
-    // transient variables don't get serialized!
-    transient public static SecretKey decUserMasterKey = null; // no static, no initialization, add transient
-    transient public SecretKey decSuperUMasterKey;
-    transient public String decUserPW;
+    public Pair<SecretKey, SecretKey> getSecretKeys(String pw) {
 
-    public boolean isPasswordCorrect(String pw) {
-        if (new SecurityManager().getHash(pw.getBytes()).equals(sHash)) {
-            decUserPW = pw;
-
+        if (getHash(pw).equals(sHash)) {
             // decrypt master keys
-            decUserMasterKey = decryptKeyWithString(encUserMasterKey);
+            SecretKey decUserMasterKey = decryptKeyWithString(encUserMasterKey, pw);
 
             if (isSuperUser) {
-                decSuperUMasterKey = decryptKeyWithString(encSuperUMasterKey);
+                return new Pair(decryptKeyWithString(encSuperUMasterKey, pw), decUserMasterKey);
+            } else {
+                return new Pair(null, decUserMasterKey);
             }
-
-            return true;
         } else {
-            return false;
+            return null;
         }
     }
 
     // Key is saved as string
-    private SecretKey decryptKeyWithString(byte[] encryptedKey) {
+    private SecretKey decryptKeyWithString(byte[] encryptedKey, String pw) {
         try {
             Cipher dcipher = Cipher.getInstance("DES");
 
-            DESKeySpec desKeySpec = new DESKeySpec(decUserPW.getBytes());
+            DESKeySpec desKeySpec = new DESKeySpec(pw.getBytes());
             SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
             SecretKey secretKey = keyFactory.generateSecret(desKeySpec);
 

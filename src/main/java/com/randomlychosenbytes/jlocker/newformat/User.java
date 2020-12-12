@@ -19,9 +19,7 @@ public abstract class User {
     @Expose
     public String encryptedUserMasterKeyBase64;
 
-    transient protected String decryptedUserPassword;
-
-    public SecretKey getUserMasterKey() {
-        return decryptKeyWithString(encryptedUserMasterKeyBase64, decryptedUserPassword);
+    public SecretKey getUserMasterKey(String password) {
+        return decryptKeyWithString(encryptedUserMasterKeyBase64, password);
     }
 }

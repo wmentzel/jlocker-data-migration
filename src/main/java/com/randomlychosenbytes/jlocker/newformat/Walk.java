@@ -1,8 +1,6 @@
 package com.randomlychosenbytes.jlocker.newformat;
 
-import abstractreps.ManagementUnit;
 import com.google.gson.annotations.Expose;
-import nonabstractreps.Entity;
 
 import java.util.List;
 

@@ -1,5 +1,4 @@
-import abstractreps.ManagementUnit;
-import nonabstractreps.*;
+import com.randomlychosenbytes.jlocker.newformat.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,31 +6,46 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 
 import java.io.File;
 import java.util.List;
-import java.util.TreeMap;
 
 import static junit.framework.TestCase.assertEquals;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class DataMigrationTest {
 
-    public List<User> users;
     public List<Building> buildings;
     public List<Task> tasks;
-    public TreeMap settings;
+    public Settings settings;
 
     public ManagementUnit mainManagementUnit;
 
     @Before
     public void setup() {
 
+        String superUserPassword = "11111111";
+        String limitedUserPassword = "22222222";
+
         File jlockerDatFile = new File(Util.getAppDir(), "src/test/data/jlocker.dat");
         OldData oldData = OldFormatUtil.loadData(jlockerDatFile, "11111111", "22222222");
 
-        buildings = oldData.buildings;
-        users = oldData.users;
-        tasks = oldData.tasks;
-        settings = oldData.settings;
-        mainManagementUnit = buildings.get(0).floors.get(0).walks.get(0).mus.get(4);
+        NewData newData = Converter.convert(oldData, superUserPassword, limitedUserPassword);
+
+        File newJLockerDatFile = new File(Util.getAppDir(), "src/test/data/new_jlocker.dat");
+
+        NewFormatUtil.saveData(
+                newJLockerDatFile, superUserPassword, limitedUserPassword,
+                newData.buildings,
+                newData.settings,
+                newData.tasks,
+                newData.superUser,
+                newData.restrictedUser
+        );
+
+        NewData newDataLoadedFromFile = Converter.loadFromCustomFile(newJLockerDatFile, superUserPassword, limitedUserPassword);
+
+        buildings = newDataLoadedFromFile.buildings;
+        tasks = newDataLoadedFromFile.tasks;
+        settings = newDataLoadedFromFile.settings;
+        mainManagementUnit = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(4);
     }
 
     @Test
@@ -54,70 +68,70 @@ public class DataMigrationTest {
 
     @Test
     public void numberOfManagementUnitsShouldBeCorrect() {
-        assertEquals(5, buildings.get(0).floors.get(0).walks.get(0).mus.size());
+        assertEquals(5, buildings.get(0).floors.get(0).walks.get(0).managementUnits.size());
     }
 
     @Test
     public void numberOfLockersShouldBeCorrect() {
-        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).mus.get(0).cabinet.lockers.size());
-        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).mus.get(1).cabinet.lockers.size());
-        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).mus.get(2).cabinet.lockers.size());
-        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).mus.get(3).cabinet.lockers.size());
-        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).mus.get(4).cabinet.lockers.size());
+        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(0).lockerCabinet.lockers.size());
+        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(1).lockerCabinet.lockers.size());
+        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(2).lockerCabinet.lockers.size());
+        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(3).lockerCabinet.lockers.size());
+        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(4).lockerCabinet.lockers.size());
     }
 
     @Test
     public void buildingNamesShouldMatch() {
-        assertEquals("main building", buildings.get(0).sName);
-        assertEquals("second building", buildings.get(1).sName);
+        assertEquals("main building", buildings.get(0).name);
+        assertEquals("second building", buildings.get(1).name);
     }
 
     @Test
     public void floorNamesShouldMatch() {
-        assertEquals("ground floor", buildings.get(0).floors.get(0).sName);
-        assertEquals("1st floor", buildings.get(0).floors.get(1).sName);
-        assertEquals("ground floor", buildings.get(1).floors.get(0).sName);
+        assertEquals("ground floor", buildings.get(0).floors.get(0).name);
+        assertEquals("1st floor", buildings.get(0).floors.get(1).name);
+        assertEquals("ground floor", buildings.get(1).floors.get(0).name);
     }
 
     @Test
     public void walkNamesShouldMatch() {
-        assertEquals("main walk", buildings.get(0).floors.get(0).walks.get(0).sName);
-        assertEquals("second walk", buildings.get(0).floors.get(0).walks.get(1).sName);
-        assertEquals("-", buildings.get(0).floors.get(1).walks.get(0).sName);
-        assertEquals("main walk", buildings.get(1).floors.get(0).walks.get(0).sName);
+        assertEquals("main walk", buildings.get(0).floors.get(0).walks.get(0).name);
+        assertEquals("second walk", buildings.get(0).floors.get(0).walks.get(1).name);
+        assertEquals("-", buildings.get(0).floors.get(1).walks.get(0).name);
+        assertEquals("main walk", buildings.get(1).floors.get(0).walks.get(0).name);
     }
 
     @Test
     public void lockerIdsShouldMatch() {
-        LockerCabinet cabinet = mainManagementUnit.cabinet;
-        assertEquals("1", cabinet.lockers.get(0).sID);
-        assertEquals("2", cabinet.lockers.get(1).sID);
-        assertEquals("3", cabinet.lockers.get(2).sID);
+        LockerCabinet cabinet = mainManagementUnit.lockerCabinet;
+        assertEquals("1", cabinet.lockers.get(0).id);
+        assertEquals("2", cabinet.lockers.get(1).id);
+        assertEquals("3", cabinet.lockers.get(2).id);
     }
 
     @Test
     public void lockerDataShouldMatch() {
-        Locker locker = mainManagementUnit.cabinet.lockers.get(0);
-        assertEquals("Lastname", locker.sSirName);
-        assertEquals("Firstname", locker.sName);
-        assertEquals("1", locker.sClass);
-        assertEquals(200, locker.iSize);
-        assertEquals("This is some note!", locker.sNote);
-        assertEquals("01.01.2020", locker.sFrom);
-        assertEquals("01.01.2021", locker.sUntil);
-        assertEquals("12-34-56", locker.sLock);
-        assertEquals(150, locker.iMoney);
-        assertEquals(50, locker.iPrevAmount);
+        Locker locker = mainManagementUnit.lockerCabinet.lockers.get(0);
+        assertEquals("Lastname", locker.lastName);
+        assertEquals("Firstname", locker.firstName);
+        assertEquals("1", locker.schoolClassName);
+        assertEquals(200, locker.sizeInCm);
+        assertEquals("This is some note!", locker.note);
+        assertEquals("01.01.2020", locker.rentedFromDate);
+        assertEquals("01.01.2021", locker.rentedUntilDate);
+        assertEquals("12-34-56", locker.lockCode);
+        assertEquals(150, locker.paidAmount);
+        assertEquals(50, locker.previoulyPaidAmount);
         assertEquals(false, locker.isOutOfOrder);
         assertEquals(true, locker.hasContract);
     }
 
     @Test
     public void tasksShouldMatch() {
-        assertEquals("This is the 1st task!", tasks.get(0).sDescription);
+        assertEquals("This is the 1st task!", tasks.get(0).description);
         assertEquals(true, tasks.get(0).isDone);
 
-        assertEquals("This is the 2nd task!", tasks.get(1).sDescription);
+        assertEquals("This is the 2nd task!", tasks.get(1).description);
         assertEquals(false, tasks.get(1).isDone);
     }
 }
