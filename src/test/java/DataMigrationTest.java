@@ -126,6 +126,8 @@ public class DataMigrationTest {
         assertEquals(decrypt(locker2.encryptedCodes[0], superUserKey), "111111");
         assertEquals(decrypt(locker2.encryptedCodes[1], superUserKey), "222222");
         assertEquals(decrypt(locker2.encryptedCodes[2], superUserKey), "987654");
+        assertEquals(decrypt(locker2.encryptedCodes[3], superUserKey), "000000");
+        assertEquals(decrypt(locker2.encryptedCodes[4], superUserKey), "000000");
     }
 
     @Test
