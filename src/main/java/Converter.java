@@ -102,6 +102,8 @@ public class Converter {
 
                         ManagementUnit newManagementUnit = new ManagementUnit();
 
+                        newManagementUnit.type = oldManagementUnit.mType;
+
                         switch (oldManagementUnit.mType) {
                             case abstractreps.ManagementUnit.LOCKERCOLUMN: {
 

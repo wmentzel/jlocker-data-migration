@@ -131,6 +131,12 @@ public class DataMigrationTest {
     }
 
     @Test
+    public void lockerTypesShouldMatch() {
+        assertEquals(mainManagementUnit.type, ManagementUnit.LOCKERCOLUMN);
+        assertEquals(buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(3).type, ManagementUnit.LOCKERCOLUMN);
+    }
+
+    @Test
     public void lockerDataShouldMatch() {
         Locker locker = mainManagementUnit.lockerCabinet.lockers.get(0);
         assertEquals("Lastname", locker.lastName);
