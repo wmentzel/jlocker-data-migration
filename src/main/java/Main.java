@@ -18,7 +18,7 @@ public class Main extends javax.swing.JFrame {
 
         File newJLockerDatFile = new File(Util.getAppDir(), "src/test/data/new_jlocker.dat");
 
-        NewData newData = Converter.convert(oldData, superUserPassword, limitedUserPassword);
+        NewData newData = Converter.convert(oldData, superUserPassword, limitedUserPassword, oldData.users.get(0).getSecretKeys(superUserPassword).getX());
 
         NewFormatUtil.saveData(
                 newJLockerDatFile, superUserPassword, limitedUserPassword,

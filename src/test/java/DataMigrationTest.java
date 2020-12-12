@@ -4,10 +4,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
+import javax.crypto.SecretKey;
 import java.io.File;
 import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
+import static com.randomlychosenbytes.jlocker.newformat.NewFormatUtil.decrypt;
+import static junit.framework.TestCase.*;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class DataMigrationTest {
@@ -18,6 +20,8 @@ public class DataMigrationTest {
 
     public ManagementUnit mainManagementUnit;
 
+    private SecretKey superUserKey;
+
     @Before
     public void setup() {
 
@@ -27,7 +31,7 @@ public class DataMigrationTest {
         File jlockerDatFile = new File(Util.getAppDir(), "src/test/data/jlocker.dat");
         OldData oldData = OldFormatUtil.loadData(jlockerDatFile, "11111111", "22222222");
 
-        NewData newData = Converter.convert(oldData, superUserPassword, limitedUserPassword);
+        NewData newData = Converter.convert(oldData, superUserPassword, limitedUserPassword, oldData.users.get(0).getSecretKeys(superUserPassword).getX());
 
         File newJLockerDatFile = new File(Util.getAppDir(), "src/test/data/new_jlocker.dat");
 
@@ -41,6 +45,8 @@ public class DataMigrationTest {
         );
 
         NewData newDataLoadedFromFile = Converter.loadFromCustomFile(newJLockerDatFile, superUserPassword, limitedUserPassword);
+
+        superUserKey = newDataLoadedFromFile.superUser.getSuperUMasterKeyBase64(superUserPassword);
 
         buildings = newDataLoadedFromFile.buildings;
         tasks = newDataLoadedFromFile.tasks;
@@ -107,6 +113,19 @@ public class DataMigrationTest {
         assertEquals("1", cabinet.lockers.get(0).id);
         assertEquals("2", cabinet.lockers.get(1).id);
         assertEquals("3", cabinet.lockers.get(2).id);
+    }
+
+    @Test
+    public void decryptingCodesShouldWork() {
+        Locker locker1 = mainManagementUnit.lockerCabinet.lockers.get(0);
+        assertNull(locker1.encryptedCodes);
+
+        Locker locker2 = mainManagementUnit.lockerCabinet.lockers.get(1);
+        assertNotNull(locker2.encryptedCodes);
+
+        assertEquals(decrypt(locker2.encryptedCodes[0], superUserKey), "111111");
+        assertEquals(decrypt(locker2.encryptedCodes[1], superUserKey), "222222");
+        assertEquals(decrypt(locker2.encryptedCodes[2], superUserKey), "987654");
     }
 
     @Test

@@ -52,7 +52,7 @@ public class Converter {
         }.getType());
     }
 
-    public static NewData convert(OldData oldData, String superUserPassword, String limitedUserPassword) {
+    public static NewData convert(OldData oldData, String superUserPassword, String limitedUserPassword, SecretKey oldSuperUserKey) {
 
         SuperUser superUser = new SuperUser(
                 OldFormatUtil.getHash(superUserPassword.getBytes()),
@@ -131,7 +131,7 @@ public class Converter {
                                         String[] newCodes = new String[oldLocker.encCodes.length];
 
                                         for (int i = 0; i < oldLocker.encCodes.length; i++) {
-                                            newCodes[i] = bytesToBase64String(oldLocker.encCodes[i]);
+                                            newCodes[i] = encrypt(decrypt(bytesToBase64String(oldLocker.encCodes[i]), oldSuperUserKey), superUser.getSuperUMasterKeyBase64(superUserPassword));
                                         }
                                         newLocker.encryptedCodes = newCodes;
                                     }
@@ -167,6 +167,7 @@ public class Converter {
                         }
                         newManagmentUnits.add(newManagementUnit);
                     }
+                    newWalk.name = oldWalk.sName;
                     newWalk.managementUnits = newManagmentUnits;
                     newWalks.add(newWalk);
                 }
