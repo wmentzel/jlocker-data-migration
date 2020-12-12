@@ -33,7 +33,7 @@ public class DataMigrationTest {
 
         NewData newData = Converter.convert(oldData, superUserPassword, limitedUserPassword, oldData.users.get(0).getSecretKeys(superUserPassword).getX());
 
-        File newJLockerDatFile = new File(Util.getAppDir(), "src/test/data/new_jlocker.dat");
+        File newJLockerDatFile = new File(Util.getAppDir(), "src/test/data/jlocker.json");
 
         NewFormatUtil.saveData(
                 newJLockerDatFile, superUserPassword, limitedUserPassword,

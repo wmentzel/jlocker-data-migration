@@ -16,7 +16,7 @@ public class Main {
         File oldJLockerDatFile = new File(Util.getAppDir(), "src/test/data/jlocker.dat");
         OldData oldData = OldFormatUtil.loadData(oldJLockerDatFile, superUserPassword, limitedUserPassword);
 
-        File newJLockerDatFile = new File(Util.getAppDir(), "src/test/data/new_jlocker.dat");
+        File newJLockerDatFile = new File(Util.getAppDir(), "src/test/data/jlocker.json");
 
         NewData newData = Converter.convert(oldData, superUserPassword, limitedUserPassword, oldData.users.get(0).getSecretKeys(superUserPassword).getX());
 
