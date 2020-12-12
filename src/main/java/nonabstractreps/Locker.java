@@ -25,6 +25,6 @@ public class Locker extends JLabel implements java.io.Serializable, Cloneable {
     public String sNote;
     public Boolean isSelected;
 
-    private int iCurrentCodeIndex;
-    private byte encCodes[][];
+    public int iCurrentCodeIndex;
+    public byte encCodes[][];
 }

@@ -5,5 +5,5 @@ import com.google.gson.annotations.Expose;
 public class Entity {
 
     @Expose
-    public String sName;
+    public String name;
 }

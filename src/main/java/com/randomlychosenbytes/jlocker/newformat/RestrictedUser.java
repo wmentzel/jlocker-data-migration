@@ -8,8 +8,8 @@ import static com.randomlychosenbytes.jlocker.newformat.NewFormatUtil.getHash;
 public class RestrictedUser extends User {
 
     public RestrictedUser(String password, SecretKey ukey) {
-        this.decUserPW = password;
-        sHash = getHash(password); // MD5 hash
-        encUserMasterKeyBase64 = encryptKeyWithString(ukey, password);
+        this.decryptedUserPassword = password;
+        passwordHash = getHash(password); // MD5 hash
+        encryptedUserMasterKeyBase64 = encryptKeyWithString(ukey, password);
     }
 }

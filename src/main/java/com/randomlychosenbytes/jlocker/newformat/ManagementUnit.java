@@ -7,7 +7,7 @@ import javax.swing.*;
 public class ManagementUnit extends JPanel {
 
     @Expose
-    public LockerCabinet cabinet;
+    public LockerCabinet lockerCabinet;
 
     @Expose
     public Room room;

@@ -9,5 +9,5 @@ import java.util.List;
 public class Walk extends Entity {
 
     @Expose
-    public List<ManagementUnit> mus;
+    public List<ManagementUnit> managementUnits;
 }

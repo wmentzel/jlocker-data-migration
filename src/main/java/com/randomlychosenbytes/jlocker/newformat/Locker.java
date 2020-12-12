@@ -7,49 +7,49 @@ import javax.swing.*;
 public class Locker extends JLabel implements Cloneable {
 
     @Expose
-    public String sID;
+    public String id;
 
     @Expose
-    public String sSirName;
+    public String lastName;
 
     @Expose
-    public String sName;
+    public String firstName;
 
     @Expose
-    public int iSize;
+    public int sizeInCm;
 
     @Expose
-    public String sClass;
+    public String schoolClassName;
 
     @Expose
-    public String sFrom;
+    public String rentedFromDate;
 
     @Expose
-    public String sUntil;
+    public String rentedUntilDate;
 
     @Expose
     public boolean hasContract;
 
     @Expose
-    public int iMoney;
+    public int paidAmount;
 
     @Expose
-    public int iPrevAmount;
+    public int previoulyPaidAmount;
 
     @Expose
     public boolean isOutOfOrder;
 
     @Expose
-    public String sLock;
+    public String lockCode;
 
     @Expose
-    public String sNote;
+    public String note;
 
     @Expose
-    public int iCurrentCodeIndex;
+    public int currentCodeIndex;
+
+    @Expose
+    public String encryptedCodes[];
 
     public Boolean isSelected = false;
-
-    @Expose
-    public String encCodes[];
 }

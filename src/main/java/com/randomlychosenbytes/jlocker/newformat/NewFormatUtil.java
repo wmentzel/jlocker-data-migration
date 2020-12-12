@@ -16,7 +16,6 @@ import java.io.Writer;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.List;
-import java.util.TreeMap;
 
 public class NewFormatUtil {
 
@@ -30,9 +29,10 @@ public class NewFormatUtil {
             String superUserPassword,
             String restrictedUserPassword,
             List<Building> buildings,
-            TreeMap settingsMap,
+            Settings settings,
             List<Task> tasks,
-            List<User> users
+            SuperUser superUser,
+            RestrictedUser restrictedUser
     ) {
 
         try {
@@ -41,27 +41,12 @@ public class NewFormatUtil {
 
             try (Writer writer = new FileWriter(file)) {
 
-                SuperUser superUser = new SuperUser(
-                        superUserPassword,
-                        getHash(superUserPassword),
-                        generateAndEncryptKey(superUserPassword),
-                        generateAndEncryptKey(superUserPassword)
-                );
-
-                Settings settings = new Settings();
-                settings.lockerMinSizes = (List<Integer>) settingsMap.get("LockerMinSizes");
-                settings.lockerOverviewFontSize = (Integer) settingsMap.get("LockerOverviewFontSize");
-                settings.numOfBackups = (Integer) settingsMap.get("NumOfBackups");
-
                 gson.toJson(new JsonRoot(
-                        encrypt(gson.toJson(buildings), users.get(0).getUserMasterKey()),
+                        encrypt(gson.toJson(buildings), superUser.getUserMasterKey()),
                         settings,
                         tasks,
                         superUser,
-                        new RestrictedUser(
-                                restrictedUserPassword,
-                                superUser.getUserMasterKey()
-                        )
+                        restrictedUser
                 ), writer);
             }
         } catch (Exception ex) {

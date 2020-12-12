@@ -14,14 +14,14 @@ import static com.randomlychosenbytes.jlocker.newformat.NewFormatUtil.decryptKey
 public abstract class User {
 
     @Expose
-    public String sHash;
+    public String passwordHash;
 
     @Expose
-    public String encUserMasterKeyBase64;
+    public String encryptedUserMasterKeyBase64;
 
-    transient protected String decUserPW;
+    transient protected String decryptedUserPassword;
 
     public SecretKey getUserMasterKey() {
-        return decryptKeyWithString(encUserMasterKeyBase64, decUserPW);
+        return decryptKeyWithString(encryptedUserMasterKeyBase64, decryptedUserPassword);
     }
 }

@@ -5,12 +5,12 @@ import com.google.gson.annotations.Expose;
 public class Task {
 
     @Expose
-    public String sDescription;
+    public String description;
 
     @Expose
     public boolean isDone = false;
 
     @Expose
-    public String sDate;
+    public String creationDate;
 }
 

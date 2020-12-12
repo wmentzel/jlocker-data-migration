@@ -7,8 +7,8 @@ import javax.swing.*;
 public class Room extends JPanel {
 
     @Expose
-    public String sClass;
+    public String schoolClassName;
 
     @Expose
-    public String sName;
+    public String name;
 }
