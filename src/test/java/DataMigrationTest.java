@@ -1,5 +1,5 @@
 import com.randomlychosenbytes.jlocker.newformat.*;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -14,16 +14,16 @@ import static junit.framework.TestCase.*;
 @RunWith(BlockJUnit4ClassRunner.class)
 public class DataMigrationTest {
 
-    public List<Building> buildings;
-    public List<Task> tasks;
-    public Settings settings;
+    public static List<Building> buildings;
+    public static List<Task> tasks;
+    public static Settings settings;
 
-    public ManagementUnit mainManagementUnit;
+    public static ManagementUnit mainManagementUnit;
 
-    private SecretKey superUserKey;
+    private static SecretKey superUserKey;
 
-    @Before
-    public void setup() {
+    @BeforeClass
+    public static void setup() {
 
         String superUserPassword = "11111111";
         String limitedUserPassword = "22222222";
