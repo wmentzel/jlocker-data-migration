@@ -17,6 +17,11 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.List;
 
+/*
+ * Yes, there are two NewFormatUtils...
+ * Classes from a non-default package are used in the functions of this class,
+ * so it has itself to reside in a non-default package.
+ */
 public class NewFormatUtil {
 
     private NewFormatUtil() {

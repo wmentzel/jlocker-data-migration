@@ -1,5 +1,3 @@
-import com.randomlychosenbytes.jlocker.newformat.NewFormatUtil;
-
 import java.io.File;
 import java.util.Scanner;
 
@@ -30,9 +28,9 @@ public class Main {
 
         File newJLockerDatFile = new File(appDir, "jlocker.json");
 
-        NewData newData = Converter.convert(oldData, superUserPassword, limitedUserPassword, oldData.users.get(0).getSecretKeys(superUserPassword).first);
+        NewData newData = NewFormatUtil.convert(oldData, superUserPassword, limitedUserPassword, oldData.users.get(0).getSecretKeys(superUserPassword).first);
 
-        NewFormatUtil.saveData(
+        com.randomlychosenbytes.jlocker.newformat.NewFormatUtil.saveData(
                 newJLockerDatFile, superUserPassword, limitedUserPassword,
                 newData.buildings,
                 newData.settings,

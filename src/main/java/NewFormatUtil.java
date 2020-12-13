@@ -12,7 +12,12 @@ import java.util.List;
 
 import static com.randomlychosenbytes.jlocker.newformat.NewFormatUtil.*;
 
-public class Converter {
+/*
+ * Yes, there are two NewFormatUtils...
+ * Classes from the default package are used in the functions of this class,
+ * so it has itself to reside in the default package.
+ */
+public class NewFormatUtil {
 
     public static NewData loadFromCustomFile(File file, String superUserPassword, String restrictedUserPassword) {
 
