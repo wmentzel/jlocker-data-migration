@@ -117,21 +117,6 @@ public class DataMigrationTest {
     }
 
     @Test
-    public void decryptingCodesShouldWork() {
-        Locker locker1 = mainManagementUnit.lockerCabinet.lockers.get(0);
-        assertNull(locker1.encryptedCodes);
-
-        Locker locker2 = mainManagementUnit.lockerCabinet.lockers.get(1);
-        assertNotNull(locker2.encryptedCodes);
-
-        assertEquals(decrypt(locker2.encryptedCodes[0], superUserKey), "111111");
-        assertEquals(decrypt(locker2.encryptedCodes[1], superUserKey), "222222");
-        assertEquals(decrypt(locker2.encryptedCodes[2], superUserKey), "987654");
-        assertEquals(decrypt(locker2.encryptedCodes[3], superUserKey), "000000");
-        assertEquals(decrypt(locker2.encryptedCodes[4], superUserKey), "000000");
-    }
-
-    @Test
     public void roomDataShouldMatch() {
         Room room = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(1).room;
 
@@ -156,11 +141,11 @@ public class DataMigrationTest {
     }
 
     @Test
-    public void lockerDataShouldMatch() {
+    public void shouldHaveCorrectDataForLocker1() {
         Locker locker = mainManagementUnit.lockerCabinet.lockers.get(0);
-        assertEquals("Lastname", locker.lastName);
-        assertEquals("Firstname", locker.firstName);
-        assertEquals("1", locker.schoolClassName);
+        assertEquals("Peggy", locker.lastName);
+        assertEquals("Olsen", locker.firstName);
+        assertEquals("11", locker.schoolClassName);
         assertEquals(200, locker.sizeInCm);
         assertEquals("This is some note!", locker.note);
         assertEquals("01.01.2020", locker.rentedFromDate);
@@ -170,6 +155,54 @@ public class DataMigrationTest {
         assertEquals(50, locker.previoulyPaidAmount);
         assertEquals(false, locker.isOutOfOrder);
         assertEquals(true, locker.hasContract);
+
+        assertEquals(locker.currentCodeIndex, 2);
+        assertEquals(decrypt(locker.encryptedCodes[0], superUserKey), "111111");
+        assertEquals(decrypt(locker.encryptedCodes[1], superUserKey), "222222");
+        assertEquals(decrypt(locker.encryptedCodes[2], superUserKey), "333333");
+        assertEquals(decrypt(locker.encryptedCodes[3], superUserKey), "444444");
+        assertEquals(decrypt(locker.encryptedCodes[4], superUserKey), "555555");
+    }
+
+    @Test
+    public void shouldHaveCorrectDataForLocker2() {
+        Locker locker = mainManagementUnit.lockerCabinet.lockers.get(1);
+        assertNotNull(locker.encryptedCodes);
+
+        assertEquals("Don", locker.lastName);
+        assertEquals("Draper", locker.firstName);
+        assertEquals("01.01.2021", locker.rentedFromDate);
+        assertEquals("31.12.2022", locker.rentedUntilDate);
+        assertEquals("12", locker.schoolClassName);
+        assertEquals(true, locker.isOutOfOrder);
+
+        assertEquals(locker.currentCodeIndex, 0);
+        assertEquals(decrypt(locker.encryptedCodes[0], superUserKey), "111111");
+        assertEquals(decrypt(locker.encryptedCodes[1], superUserKey), "222222");
+        assertEquals(decrypt(locker.encryptedCodes[2], superUserKey), "987654");
+        assertEquals(decrypt(locker.encryptedCodes[3], superUserKey), "000000");
+        assertEquals(decrypt(locker.encryptedCodes[4], superUserKey), "000000");
+    }
+
+    @Test
+    public void shouldHaveCorrectDataForLocker3() {
+        Locker locker = mainManagementUnit.lockerCabinet.lockers.get(2);
+
+        assertEquals("", locker.lastName);
+        assertEquals("", locker.firstName);
+        assertEquals("", locker.schoolClassName);
+        assertEquals(0, locker.sizeInCm);
+        assertEquals("", locker.note);
+        assertEquals("", locker.rentedFromDate);
+        assertEquals("", locker.rentedUntilDate);
+        assertEquals("", locker.lockCode);
+        assertEquals(0, locker.paidAmount);
+        assertEquals(0, locker.previoulyPaidAmount);
+
+        assertEquals(false, locker.isOutOfOrder);
+        assertEquals(false, locker.hasContract);
+
+        assertNull(locker.encryptedCodes);
     }
 
     @Test
