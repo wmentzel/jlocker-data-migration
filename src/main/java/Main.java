@@ -30,7 +30,7 @@ public class Main {
 
         File newJLockerDatFile = new File(appDir, "jlocker.json");
 
-        NewData newData = Converter.convert(oldData, superUserPassword, limitedUserPassword, oldData.users.get(0).getSecretKeys(superUserPassword).getX());
+        NewData newData = Converter.convert(oldData, superUserPassword, limitedUserPassword, oldData.users.get(0).getSecretKeys(superUserPassword).first);
 
         NewFormatUtil.saveData(
                 newJLockerDatFile, superUserPassword, limitedUserPassword,

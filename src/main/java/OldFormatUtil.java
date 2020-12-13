@@ -52,19 +52,19 @@ public class OldFormatUtil {
 
         Pair<SecretKey, SecretKey> superUserKeys = superUser.getSecretKeys(superUserPassword);
 
-        if (superUserKeys.getX() == null || superUserKeys.getY() == null) {
+        if (superUserKeys.first == null || superUserKeys.second == null) {
             throw new RuntimeException("Super user password does not match");
         }
 
         Pair<SecretKey, SecretKey> userKeys = limitedUser.getSecretKeys(limitedUserPassword);
 
-        if (userKeys.getY() == null) {
+        if (userKeys.second == null) {
             throw new RuntimeException("Limited user password does not match");
         }
 
         List<Building> buildings = unsealAndDeserializeBuildings(
                 sealedBuildingsObject,
-                superUserKeys.getY()
+                superUserKeys.second
         );
 
         if (buildings == null) {

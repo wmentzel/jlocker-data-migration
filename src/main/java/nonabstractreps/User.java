@@ -30,9 +30,9 @@ public class User extends Entity {
             SecretKey decUserMasterKey = decryptKeyWithString(encUserMasterKey, pw);
 
             if (isSuperUser) {
-                return new Pair(decryptKeyWithString(encSuperUMasterKey, pw), decUserMasterKey);
+                return new Pair<>(decryptKeyWithString(encSuperUMasterKey, pw), decUserMasterKey);
             } else {
-                return new Pair(null, decUserMasterKey);
+                return new Pair<>(null, decUserMasterKey);
             }
         } else {
             return null;
