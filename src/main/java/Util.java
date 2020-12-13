@@ -1,10 +1,13 @@
 import java.io.File;
-import java.net.URL;
 
 public class Util {
-    public static File getAppDir() {
-        URL url = Main.class.getProtectionDomain().getCodeSource().getLocation();
-        File codeRootDir = new File(url.getFile()).getParentFile().getParentFile();
-        return codeRootDir;
+    public static File getAppDir(boolean isRelease) {
+        File file = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getFile());
+
+        if (isRelease) {
+            return file.getParentFile();
+        } else {
+            return file.getParentFile().getParentFile();
+        }
     }
 }

@@ -1,7 +1,10 @@
 import com.randomlychosenbytes.jlocker.newformat.NewFormatUtil;
 
-import java.io.Console;
 import java.io.File;
+import java.util.Scanner;
+
+import static java.lang.System.in;
+import static java.lang.System.out;
 
 /**
  * This is the main windows of the application. It is displayed right after
@@ -11,13 +14,16 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Console console = System.console();
+        Scanner scanner = new Scanner(in);
 
-        String superUserPassword = console.readLine("Super User password: ");
-        String limitedUserPassword = console.readLine("Limited User password: ");
+        out.println("Super User password: ");
+        String superUserPassword = scanner.nextLine();
 
-        File appDir = Util.getAppDir();
-        System.out.println("* program directory is: \"" + appDir.getAbsolutePath() + "\"");
+        out.println("Limited User password: ");
+        String limitedUserPassword = scanner.nextLine();
+
+        File appDir = Util.getAppDir(true);
+        out.println("* program directory is: \"" + appDir.getAbsolutePath() + "\"");
 
         File oldJLockerDatFile = new File(appDir, "jlocker.dat");
         OldData oldData = OldFormatUtil.loadData(oldJLockerDatFile, superUserPassword, limitedUserPassword);
