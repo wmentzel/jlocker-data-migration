@@ -23,7 +23,7 @@ public class Main {
         String limitedUserPassword = scanner.nextLine();
 
         File appDir = Util.getAppDir(true);
-        out.println("* program directory is: \"" + appDir.getAbsolutePath() + "\"");
+        out.println("* Program directory is: \"" + appDir.getAbsolutePath() + "\"");
 
         File oldJLockerDatFile = new File(appDir, "jlocker.dat");
         OldData oldData = OldFormatUtil.loadData(oldJLockerDatFile, superUserPassword, limitedUserPassword);
@@ -40,5 +40,6 @@ public class Main {
                 newData.superUser,
                 newData.restrictedUser
         );
+        out.println("* File conversion successfully completed. The new file can be found here: \"" + newJLockerDatFile.getAbsolutePath() + "\"");
     }
 }

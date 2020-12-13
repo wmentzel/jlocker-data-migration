@@ -27,7 +27,6 @@ public class DataMigrationTest {
         String limitedUserPassword = "22222222";
 
         File appDir = Util.getAppDir(false);
-        System.out.println("* program directory is: \"" + appDir.getAbsolutePath() + "\"");
 
         File jlockerDatFile = new File(appDir, "src/test/data/jlocker.dat");
         OldData oldData = OldFormatUtil.loadData(jlockerDatFile, "11111111", "22222222");
