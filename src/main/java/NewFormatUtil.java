@@ -57,7 +57,7 @@ public class NewFormatUtil {
         }.getType());
     }
 
-    public static NewData convert(OldData oldData, String superUserPassword, String limitedUserPassword, SecretKey oldSuperUserKey) {
+    public static NewData convert(OldData oldData, String superUserPassword, String restrictedUserPassword, SecretKey oldSuperUserKey) {
 
         SuperUser superUser = new SuperUser(
                 OldFormatUtil.getHash(superUserPassword.getBytes()),
@@ -66,7 +66,7 @@ public class NewFormatUtil {
         );
 
         RestrictedUser restrictedUser = new RestrictedUser(
-                limitedUserPassword,
+                restrictedUserPassword,
                 superUser.getUserMasterKey(superUserPassword)
         );
 

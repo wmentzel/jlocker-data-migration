@@ -24,19 +24,19 @@ public class DataMigrationTest {
     public static void setup() {
 
         String superUserPassword = "11111111";
-        String limitedUserPassword = "22222222";
+        String restrictedUserPassword = "22222222";
 
         File appDir = Util.getAppDir(false);
 
         File jlockerDatFile = new File(appDir, "src/test/data/jlocker.dat");
         OldData oldData = OldFormatUtil.loadData(jlockerDatFile, "11111111", "22222222");
 
-        NewData newData = NewFormatUtil.convert(oldData, superUserPassword, limitedUserPassword, oldData.users.get(0).getSecretKeys(superUserPassword).first);
+        NewData newData = NewFormatUtil.convert(oldData, superUserPassword, restrictedUserPassword, oldData.users.get(0).getSecretKeys(superUserPassword).first);
 
         File newJLockerDatFile = new File(appDir, "src/test/data/jlocker.json");
 
         com.randomlychosenbytes.jlocker.newformat.NewFormatUtil.saveData(
-                newJLockerDatFile, superUserPassword, limitedUserPassword,
+                newJLockerDatFile, superUserPassword, restrictedUserPassword,
                 newData.buildings,
                 newData.settings,
                 newData.tasks,
@@ -44,7 +44,7 @@ public class DataMigrationTest {
                 newData.restrictedUser
         );
 
-        NewData newDataLoadedFromFile = NewFormatUtil.loadFromCustomFile(newJLockerDatFile, superUserPassword, limitedUserPassword);
+        NewData newDataLoadedFromFile = NewFormatUtil.loadFromCustomFile(newJLockerDatFile, superUserPassword, restrictedUserPassword);
 
         superUserKey = newDataLoadedFromFile.superUser.getSuperUMasterKeyBase64(superUserPassword);
 

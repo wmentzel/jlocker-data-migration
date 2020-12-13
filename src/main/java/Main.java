@@ -17,21 +17,21 @@ public class Main {
         out.println("Super User password: ");
         String superUserPassword = scanner.nextLine();
 
-        out.println("Limited User password: ");
-        String limitedUserPassword = scanner.nextLine();
+        out.println("Restricted User password: ");
+        String restrictedUserPassword = scanner.nextLine();
 
         File appDir = Util.getAppDir(true);
         out.println("* Program directory is: \"" + appDir.getAbsolutePath() + "\"");
 
         File oldJLockerDatFile = new File(appDir, "jlocker.dat");
-        OldData oldData = OldFormatUtil.loadData(oldJLockerDatFile, superUserPassword, limitedUserPassword);
+        OldData oldData = OldFormatUtil.loadData(oldJLockerDatFile, superUserPassword, restrictedUserPassword);
 
         File newJLockerDatFile = new File(appDir, "jlocker.json");
 
-        NewData newData = NewFormatUtil.convert(oldData, superUserPassword, limitedUserPassword, oldData.users.get(0).getSecretKeys(superUserPassword).first);
+        NewData newData = NewFormatUtil.convert(oldData, superUserPassword, restrictedUserPassword, oldData.users.get(0).getSecretKeys(superUserPassword).first);
 
         com.randomlychosenbytes.jlocker.newformat.NewFormatUtil.saveData(
-                newJLockerDatFile, superUserPassword, limitedUserPassword,
+                newJLockerDatFile, superUserPassword, restrictedUserPassword,
                 newData.buildings,
                 newData.settings,
                 newData.tasks,

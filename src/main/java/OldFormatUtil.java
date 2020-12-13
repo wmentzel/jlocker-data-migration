@@ -27,7 +27,7 @@ public class OldFormatUtil {
     private OldFormatUtil() {
     }
 
-    public static OldData loadData(File jlockerDatFile, String superUserPassword, String limitedUserPassword) {
+    public static OldData loadData(File jlockerDatFile, String superUserPassword, String restrictedUserPassword) {
 
         List<User> users;
         SealedObject sealedBuildingsObject;
@@ -48,7 +48,7 @@ public class OldFormatUtil {
         }
 
         User superUser = users.get(0);
-        User limitedUser = users.get(1);
+        User restrictedUser = users.get(1);
 
         Pair<SecretKey, SecretKey> superUserKeys = superUser.getSecretKeys(superUserPassword);
 
@@ -56,10 +56,10 @@ public class OldFormatUtil {
             throw new RuntimeException("Super user password does not match");
         }
 
-        Pair<SecretKey, SecretKey> userKeys = limitedUser.getSecretKeys(limitedUserPassword);
+        Pair<SecretKey, SecretKey> userKeys = restrictedUser.getSecretKeys(restrictedUserPassword);
 
         if (userKeys.second == null) {
-            throw new RuntimeException("Limited user password does not match");
+            throw new RuntimeException("Restricted user password does not match");
         }
 
         List<Building> buildings = unsealAndDeserializeBuildings(
