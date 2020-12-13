@@ -18,8 +18,6 @@ public class DataMigrationTest {
     public static List<Task> tasks;
     public static Settings settings;
 
-    public static ManagementUnit mainManagementUnit;
-
     private static SecretKey superUserKey;
 
     @BeforeClass
@@ -54,7 +52,6 @@ public class DataMigrationTest {
         buildings = newDataLoadedFromFile.buildings;
         tasks = newDataLoadedFromFile.tasks;
         settings = newDataLoadedFromFile.settings;
-        mainManagementUnit = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(4);
     }
 
     @Test
@@ -82,9 +79,10 @@ public class DataMigrationTest {
 
     @Test
     public void numberOfLockersShouldBeCorrect() {
-        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(2).lockerCabinet.lockers.size());
-        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(3).lockerCabinet.lockers.size());
-        assertEquals(3, buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(4).lockerCabinet.lockers.size());
+        List<ManagementUnit> managementUnits = buildings.get(0).floors.get(0).walks.get(0).managementUnits;
+        assertEquals(3, managementUnits.get(2).lockerCabinet.lockers.size());
+        assertEquals(3, managementUnits.get(3).lockerCabinet.lockers.size());
+        assertEquals(3, managementUnits.get(4).lockerCabinet.lockers.size());
     }
 
     @Test
@@ -110,7 +108,7 @@ public class DataMigrationTest {
 
     @Test
     public void lockerIdsShouldMatch() {
-        LockerCabinet cabinet = mainManagementUnit.lockerCabinet;
+        LockerCabinet cabinet = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(4).lockerCabinet;
         assertEquals("1", cabinet.lockers.get(0).id);
         assertEquals("2", cabinet.lockers.get(1).id);
         assertEquals("3", cabinet.lockers.get(2).id);
@@ -132,17 +130,19 @@ public class DataMigrationTest {
 
     @Test
     public void lockerTypesShouldMatch() {
-        assertEquals(mainManagementUnit.type, ManagementUnit.LOCKERCOLUMN);
-        assertEquals(buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(3).type, ManagementUnit.LOCKERCOLUMN);
-        assertEquals(buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(2).type, ManagementUnit.LOCKERCOLUMN);
+        List<ManagementUnit> managementUnits = buildings.get(0).floors.get(0).walks.get(0).managementUnits;
 
-        assertEquals(buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(1).type, ManagementUnit.ROOM);
-        assertEquals(buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(0).type, ManagementUnit.STAIRCASE);
+        assertEquals(managementUnits.get(4).type, ManagementUnit.LOCKERCOLUMN);
+        assertEquals(managementUnits.get(3).type, ManagementUnit.LOCKERCOLUMN);
+        assertEquals(managementUnits.get(2).type, ManagementUnit.LOCKERCOLUMN);
+
+        assertEquals(managementUnits.get(1).type, ManagementUnit.ROOM);
+        assertEquals(managementUnits.get(0).type, ManagementUnit.STAIRCASE);
     }
 
     @Test
     public void shouldHaveCorrectDataForLocker1() {
-        Locker locker = mainManagementUnit.lockerCabinet.lockers.get(0);
+        Locker locker = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(4).lockerCabinet.lockers.get(0);
         assertEquals("Peggy", locker.lastName);
         assertEquals("Olsen", locker.firstName);
         assertEquals("11", locker.schoolClassName);
@@ -153,8 +153,8 @@ public class DataMigrationTest {
         assertEquals("12-34-56", locker.lockCode);
         assertEquals(150, locker.paidAmount);
         assertEquals(50, locker.previoulyPaidAmount);
-        assertEquals(false, locker.isOutOfOrder);
-        assertEquals(true, locker.hasContract);
+        assertFalse(locker.isOutOfOrder);
+        assertTrue(locker.hasContract);
 
         assertEquals(locker.currentCodeIndex, 2);
         assertEquals(decrypt(locker.encryptedCodes[0], superUserKey), "111111");
@@ -166,7 +166,7 @@ public class DataMigrationTest {
 
     @Test
     public void shouldHaveCorrectDataForLocker2() {
-        Locker locker = mainManagementUnit.lockerCabinet.lockers.get(1);
+        Locker locker = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(4).lockerCabinet.lockers.get(1);
         assertNotNull(locker.encryptedCodes);
 
         assertEquals("Don", locker.lastName);
@@ -174,7 +174,7 @@ public class DataMigrationTest {
         assertEquals("01.01.2021", locker.rentedFromDate);
         assertEquals("31.12.2022", locker.rentedUntilDate);
         assertEquals("12", locker.schoolClassName);
-        assertEquals(true, locker.isOutOfOrder);
+        assertTrue(locker.isOutOfOrder);
 
         assertEquals(locker.currentCodeIndex, 0);
         assertEquals(decrypt(locker.encryptedCodes[0], superUserKey), "111111");
@@ -186,7 +186,7 @@ public class DataMigrationTest {
 
     @Test
     public void shouldHaveCorrectDataForLocker3() {
-        Locker locker = mainManagementUnit.lockerCabinet.lockers.get(2);
+        Locker locker = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(4).lockerCabinet.lockers.get(2);
 
         assertEquals("", locker.lastName);
         assertEquals("", locker.firstName);
@@ -199,8 +199,8 @@ public class DataMigrationTest {
         assertEquals(0, locker.paidAmount);
         assertEquals(0, locker.previoulyPaidAmount);
 
-        assertEquals(false, locker.isOutOfOrder);
-        assertEquals(false, locker.hasContract);
+        assertFalse(locker.isOutOfOrder);
+        assertFalse(locker.hasContract);
 
         assertNull(locker.encryptedCodes);
     }
@@ -208,9 +208,9 @@ public class DataMigrationTest {
     @Test
     public void tasksShouldMatch() {
         assertEquals("This is the 1st task!", tasks.get(0).description);
-        assertEquals(true, tasks.get(0).isDone);
+        assertTrue(tasks.get(0).isDone);
 
         assertEquals("This is the 2nd task!", tasks.get(1).description);
-        assertEquals(false, tasks.get(1).isDone);
+        assertFalse(tasks.get(1).isDone);
     }
 }
