@@ -145,7 +145,7 @@ public class DataMigrationTest {
         assertEquals("Peggy", locker.lastName);
         assertEquals("Olsen", locker.firstName);
         assertEquals("11", locker.schoolClassName);
-        assertEquals(200, locker.sizeInCm);
+        assertEquals(200, locker.heightInCm);
         assertEquals("This is some note!", locker.note);
         assertEquals("01.01.2020", locker.rentedFromDate);
         assertEquals("01.01.2021", locker.rentedUntilDate);
@@ -190,7 +190,7 @@ public class DataMigrationTest {
         assertEquals("", locker.lastName);
         assertEquals("", locker.firstName);
         assertEquals("", locker.schoolClassName);
-        assertEquals(0, locker.sizeInCm);
+        assertEquals(0, locker.heightInCm);
         assertEquals("", locker.note);
         assertEquals("", locker.rentedFromDate);
         assertEquals("", locker.rentedUntilDate);

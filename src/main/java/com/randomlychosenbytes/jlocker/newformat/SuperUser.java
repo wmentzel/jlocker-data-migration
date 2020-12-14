@@ -9,19 +9,19 @@ import static com.randomlychosenbytes.jlocker.newformat.NewFormatUtil.decryptKey
 public class SuperUser extends User {
 
     @Expose
-    protected String encSuperUMasterKeyBase64;
+    protected String encryptedSuperUMasterKeyBase64;
 
     public SuperUser(
             String hash,
-            String encUserMasterKeyBase64,
-            String encSuperUMasterKeyBase64
+            String encryptedUserMasterKeyBase64,
+            String encryptedSuperUMasterKeyBase64
     ) {
         this.passwordHash = hash;
-        this.encSuperUMasterKeyBase64 = encSuperUMasterKeyBase64;
-        this.encryptedUserMasterKeyBase64 = encUserMasterKeyBase64;
+        this.encryptedSuperUMasterKeyBase64 = encryptedSuperUMasterKeyBase64;
+        this.encryptedUserMasterKeyBase64 = encryptedUserMasterKeyBase64;
     }
 
     public SecretKey getSuperUMasterKeyBase64(String password) {
-        return decryptKeyWithString(encSuperUMasterKeyBase64, password);
+        return decryptKeyWithString(encryptedSuperUMasterKeyBase64, password);
     }
 }

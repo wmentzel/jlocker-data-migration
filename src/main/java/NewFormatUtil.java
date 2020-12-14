@@ -122,7 +122,7 @@ public class NewFormatUtil {
                                     newLocker.id = oldLocker.sID;
                                     newLocker.firstName = oldLocker.sName;
                                     newLocker.lastName = oldLocker.sSirName;
-                                    newLocker.sizeInCm = oldLocker.iSize;
+                                    newLocker.heightInCm = oldLocker.iSize;
                                     newLocker.schoolClassName = oldLocker.sClass;
                                     newLocker.rentedFromDate = oldLocker.sFrom;
                                     newLocker.rentedUntilDate = oldLocker.sUntil;

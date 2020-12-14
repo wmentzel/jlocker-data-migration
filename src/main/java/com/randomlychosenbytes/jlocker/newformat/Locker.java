@@ -16,7 +16,7 @@ public class Locker extends JLabel implements Cloneable {
     public String firstName;
 
     @Expose
-    public int sizeInCm;
+    public int heightInCm;
 
     @Expose
     public String schoolClassName;
