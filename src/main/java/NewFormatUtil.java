@@ -7,6 +7,7 @@ import javax.crypto.SecretKey;
 import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -175,6 +176,8 @@ public class NewFormatUtil {
                         newManagmentUnits.add(newManagementUnit);
                     }
                     newWalk.name = oldWalk.sName;
+
+                    Collections.reverse(newManagmentUnits);
                     newWalk.managementUnits = newManagmentUnits;
                     newWalks.add(newWalk);
                 }

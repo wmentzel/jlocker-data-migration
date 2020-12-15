@@ -80,8 +80,8 @@ public class DataMigrationTest {
     public void numberOfLockersShouldBeCorrect() {
         List<ManagementUnit> managementUnits = buildings.get(0).floors.get(0).walks.get(0).managementUnits;
         assertEquals(3, managementUnits.get(2).lockerCabinet.lockers.size());
-        assertEquals(3, managementUnits.get(3).lockerCabinet.lockers.size());
-        assertEquals(3, managementUnits.get(4).lockerCabinet.lockers.size());
+        assertEquals(3, managementUnits.get(1).lockerCabinet.lockers.size());
+        assertEquals(3, managementUnits.get(0).lockerCabinet.lockers.size());
     }
 
     @Test
@@ -107,7 +107,7 @@ public class DataMigrationTest {
 
     @Test
     public void lockerIdsShouldMatch() {
-        LockerCabinet cabinet = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(4).lockerCabinet;
+        LockerCabinet cabinet = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(0).lockerCabinet;
         assertEquals("1", cabinet.lockers.get(0).id);
         assertEquals("2", cabinet.lockers.get(1).id);
         assertEquals("3", cabinet.lockers.get(2).id);
@@ -115,7 +115,7 @@ public class DataMigrationTest {
 
     @Test
     public void roomDataShouldMatch() {
-        Room room = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(1).room;
+        Room room = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(3).room;
 
         assertEquals(room.name, "Some Classroom");
         assertEquals(room.schoolClassName, "12");
@@ -123,7 +123,7 @@ public class DataMigrationTest {
 
     @Test
     public void stairCaseDataShouldMatch() {
-        Staircase staircase = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(0).staircase;
+        Staircase staircase = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(4).staircase;
         assertEquals(staircase.name, "Main Staircase");
     }
 
@@ -131,17 +131,17 @@ public class DataMigrationTest {
     public void lockerTypesShouldMatch() {
         List<ManagementUnit> managementUnits = buildings.get(0).floors.get(0).walks.get(0).managementUnits;
 
-        assertEquals(managementUnits.get(4).type, ManagementUnit.LOCKERCOLUMN);
-        assertEquals(managementUnits.get(3).type, ManagementUnit.LOCKERCOLUMN);
+        assertEquals(managementUnits.get(0).type, ManagementUnit.LOCKERCOLUMN);
+        assertEquals(managementUnits.get(1).type, ManagementUnit.LOCKERCOLUMN);
         assertEquals(managementUnits.get(2).type, ManagementUnit.LOCKERCOLUMN);
 
-        assertEquals(managementUnits.get(1).type, ManagementUnit.ROOM);
-        assertEquals(managementUnits.get(0).type, ManagementUnit.STAIRCASE);
+        assertEquals(managementUnits.get(3).type, ManagementUnit.ROOM);
+        assertEquals(managementUnits.get(4).type, ManagementUnit.STAIRCASE);
     }
 
     @Test
     public void shouldHaveCorrectDataForLocker1() {
-        Locker locker = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(4).lockerCabinet.lockers.get(0);
+        Locker locker = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(0).lockerCabinet.lockers.get(0);
         assertEquals("Peggy", locker.lastName);
         assertEquals("Olsen", locker.firstName);
         assertEquals("11", locker.schoolClassName);
@@ -165,7 +165,7 @@ public class DataMigrationTest {
 
     @Test
     public void shouldHaveCorrectDataForLocker2() {
-        Locker locker = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(4).lockerCabinet.lockers.get(1);
+        Locker locker = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(0).lockerCabinet.lockers.get(1);
         assertNotNull(locker.encryptedCodes);
 
         assertEquals("Don", locker.lastName);
@@ -185,7 +185,7 @@ public class DataMigrationTest {
 
     @Test
     public void shouldHaveCorrectDataForLocker3() {
-        Locker locker = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(4).lockerCabinet.lockers.get(2);
+        Locker locker = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(0).lockerCabinet.lockers.get(2);
 
         assertEquals("", locker.lastName);
         assertEquals("", locker.firstName);
