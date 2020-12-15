@@ -122,17 +122,21 @@ public class NewFormatUtil {
 
                                     newLocker.id = oldLocker.sID;
 
-                                    Pupil pupil = new Pupil();
-                                    pupil.firstName = oldLocker.sName;
-                                    pupil.lastName = oldLocker.sSirName;
-                                    pupil.heightInCm = oldLocker.iSize;
-                                    pupil.schoolClassName = oldLocker.sClass;
-                                    pupil.rentedFromDate = oldLocker.sFrom;
-                                    pupil.rentedUntilDate = oldLocker.sUntil;
-                                    pupil.paidAmount = oldLocker.iMoney;
-                                    pupil.previoulyPaidAmount = oldLocker.iPrevAmount;
+                                    if (oldLocker.sName.isEmpty() && oldLocker.sSirName.isEmpty()) {
+                                        newLocker.pupil = null;
+                                    } else {
+                                        Pupil pupil = new Pupil();
+                                        pupil.firstName = oldLocker.sName;
+                                        pupil.lastName = oldLocker.sSirName;
+                                        pupil.heightInCm = oldLocker.iSize;
+                                        pupil.schoolClassName = oldLocker.sClass;
+                                        pupil.rentedFromDate = oldLocker.sFrom;
+                                        pupil.rentedUntilDate = oldLocker.sUntil;
+                                        pupil.paidAmount = oldLocker.iMoney;
+                                        pupil.previoulyPaidAmount = oldLocker.iPrevAmount;
+                                        newLocker.pupil = pupil;
+                                    }
 
-                                    newLocker.pupil = pupil;
                                     newLocker.hasContract = oldLocker.hasContract;
                                     newLocker.isOutOfOrder = oldLocker.isOutOfOrder;
                                     newLocker.lockCode = oldLocker.sLock;
