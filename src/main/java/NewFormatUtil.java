@@ -121,15 +121,19 @@ public class NewFormatUtil {
                                     Locker newLocker = new Locker();
 
                                     newLocker.id = oldLocker.sID;
-                                    newLocker.firstName = oldLocker.sName;
-                                    newLocker.lastName = oldLocker.sSirName;
-                                    newLocker.heightInCm = oldLocker.iSize;
-                                    newLocker.schoolClassName = oldLocker.sClass;
-                                    newLocker.rentedFromDate = oldLocker.sFrom;
-                                    newLocker.rentedUntilDate = oldLocker.sUntil;
+
+                                    Pupil pupil = new Pupil();
+                                    pupil.firstName = oldLocker.sName;
+                                    pupil.lastName = oldLocker.sSirName;
+                                    pupil.heightInCm = oldLocker.iSize;
+                                    pupil.schoolClassName = oldLocker.sClass;
+                                    pupil.rentedFromDate = oldLocker.sFrom;
+                                    pupil.rentedUntilDate = oldLocker.sUntil;
+                                    pupil.paidAmount = oldLocker.iMoney;
+                                    pupil.previoulyPaidAmount = oldLocker.iPrevAmount;
+
+                                    newLocker.pupil = pupil;
                                     newLocker.hasContract = oldLocker.hasContract;
-                                    newLocker.paidAmount = oldLocker.iMoney;
-                                    newLocker.previoulyPaidAmount = oldLocker.iPrevAmount;
                                     newLocker.isOutOfOrder = oldLocker.isOutOfOrder;
                                     newLocker.lockCode = oldLocker.sLock;
                                     newLocker.note = oldLocker.sNote;

@@ -10,31 +10,7 @@ public class Locker extends JLabel implements Cloneable {
     public String id;
 
     @Expose
-    public String lastName;
-
-    @Expose
-    public String firstName;
-
-    @Expose
-    public int heightInCm;
-
-    @Expose
-    public String schoolClassName;
-
-    @Expose
-    public String rentedFromDate;
-
-    @Expose
-    public String rentedUntilDate;
-
-    @Expose
     public boolean hasContract;
-
-    @Expose
-    public int paidAmount;
-
-    @Expose
-    public int previoulyPaidAmount;
 
     @Expose
     public boolean isOutOfOrder;
@@ -50,6 +26,9 @@ public class Locker extends JLabel implements Cloneable {
 
     @Expose
     public String encryptedCodes[];
+
+    @Expose
+    public Pupil pupil;
 
     public Boolean isSelected = false;
 }

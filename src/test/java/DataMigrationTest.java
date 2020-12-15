@@ -142,16 +142,16 @@ public class DataMigrationTest {
     @Test
     public void shouldHaveCorrectDataForLocker1() {
         Locker locker = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(0).lockerCabinet.lockers.get(0);
-        assertEquals("Peggy", locker.lastName);
-        assertEquals("Olsen", locker.firstName);
-        assertEquals("11", locker.schoolClassName);
-        assertEquals(200, locker.heightInCm);
+        assertEquals("Peggy", locker.pupil.lastName);
+        assertEquals("Olsen", locker.pupil.firstName);
+        assertEquals("11", locker.pupil.schoolClassName);
+        assertEquals(200, locker.pupil.heightInCm);
         assertEquals("This is some note!", locker.note);
-        assertEquals("01.01.2020", locker.rentedFromDate);
-        assertEquals("01.01.2021", locker.rentedUntilDate);
+        assertEquals("01.01.2020", locker.pupil.rentedFromDate);
+        assertEquals("01.01.2021", locker.pupil.rentedUntilDate);
         assertEquals("12-34-56", locker.lockCode);
-        assertEquals(150, locker.paidAmount);
-        assertEquals(50, locker.previoulyPaidAmount);
+        assertEquals(150, locker.pupil.paidAmount);
+        assertEquals(50, locker.pupil.previoulyPaidAmount);
         assertFalse(locker.isOutOfOrder);
         assertTrue(locker.hasContract);
 
@@ -168,11 +168,11 @@ public class DataMigrationTest {
         Locker locker = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(0).lockerCabinet.lockers.get(1);
         assertNotNull(locker.encryptedCodes);
 
-        assertEquals("Don", locker.lastName);
-        assertEquals("Draper", locker.firstName);
-        assertEquals("01.01.2021", locker.rentedFromDate);
-        assertEquals("31.12.2022", locker.rentedUntilDate);
-        assertEquals("12", locker.schoolClassName);
+        assertEquals("Don", locker.pupil.lastName);
+        assertEquals("Draper", locker.pupil.firstName);
+        assertEquals("01.01.2021", locker.pupil.rentedFromDate);
+        assertEquals("31.12.2022", locker.pupil.rentedUntilDate);
+        assertEquals("12", locker.pupil.schoolClassName);
         assertTrue(locker.isOutOfOrder);
 
         assertEquals(locker.currentCodeIndex, 0);
@@ -187,16 +187,16 @@ public class DataMigrationTest {
     public void shouldHaveCorrectDataForLocker3() {
         Locker locker = buildings.get(0).floors.get(0).walks.get(0).managementUnits.get(0).lockerCabinet.lockers.get(2);
 
-        assertEquals("", locker.lastName);
-        assertEquals("", locker.firstName);
-        assertEquals("", locker.schoolClassName);
-        assertEquals(0, locker.heightInCm);
+        assertEquals("", locker.pupil.lastName);
+        assertEquals("", locker.pupil.firstName);
+        assertEquals("", locker.pupil.schoolClassName);
+        assertEquals(0, locker.pupil.heightInCm);
         assertEquals("", locker.note);
-        assertEquals("", locker.rentedFromDate);
-        assertEquals("", locker.rentedUntilDate);
+        assertEquals("", locker.pupil.rentedFromDate);
+        assertEquals("", locker.pupil.rentedUntilDate);
         assertEquals("", locker.lockCode);
-        assertEquals(0, locker.paidAmount);
-        assertEquals(0, locker.previoulyPaidAmount);
+        assertEquals(0, locker.pupil.paidAmount);
+        assertEquals(0, locker.pupil.previoulyPaidAmount);
 
         assertFalse(locker.isOutOfOrder);
         assertFalse(locker.hasContract);
