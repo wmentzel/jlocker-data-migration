@@ -2,9 +2,7 @@ package com.randomlychosenbytes.jlocker.newformat;
 
 import com.google.gson.annotations.Expose;
 
-import javax.swing.*;
-
-public class Room extends JPanel {
+public class Room extends Module {
 
     @Expose
     public String schoolClassName;

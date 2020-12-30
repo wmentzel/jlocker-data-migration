@@ -7,5 +7,5 @@ import java.util.List;
 public class Walk extends Entity {
 
     @Expose
-    public List<ManagementUnit> managementUnits;
+    public List<ModuleWrapper> moduleWrappers;
 }

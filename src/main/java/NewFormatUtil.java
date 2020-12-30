@@ -45,6 +45,7 @@ public class NewFormatUtil {
             return newData;
 
         } catch (Exception ex) {
+            System.err.println(ex);
         }
 
         return null;
@@ -52,7 +53,10 @@ public class NewFormatUtil {
 
     public static List<Building> unsealAndDeserializeBuildings(String encryptedBuildingsBase64, SecretKey key) throws Exception {
         String json = decrypt(encryptedBuildingsBase64, key);
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        Gson gson = new GsonBuilder().registerTypeAdapter(
+                Module.class,
+                new ModuleDeserializer<Module>()
+        ).excludeFieldsWithoutExposeAnnotation().create();
 
         return gson.fromJson(json, new TypeToken<List<Building>>() {
         }.getType());
@@ -103,12 +107,10 @@ public class NewFormatUtil {
 
                     Walk newWalk = new Walk();
 
-                    List<ManagementUnit> newManagmentUnits = new LinkedList<>();
+                    List<ModuleWrapper> newManagmentUnits = new LinkedList<>();
                     for (abstractreps.ManagementUnit oldManagementUnit : oldWalk.mus) {
 
-                        ManagementUnit newManagementUnit = new ManagementUnit();
-
-                        newManagementUnit.type = oldManagementUnit.mType;
+                        ModuleWrapper newModuleWrapper = new ModuleWrapper();
 
                         switch (oldManagementUnit.mType) {
                             case abstractreps.ManagementUnit.LOCKERCOLUMN: {
@@ -158,7 +160,7 @@ public class NewFormatUtil {
 
                                 newCabinet.lockers = lockers;
 
-                                newManagementUnit.lockerCabinet = newCabinet;
+                                newModuleWrapper.module = newCabinet;
                                 break;
                             }
                             case abstractreps.ManagementUnit.STAIRCASE: {
@@ -167,7 +169,7 @@ public class NewFormatUtil {
 
                                 staircase.name = oldManagementUnit.staircase.sName;
 
-                                newManagementUnit.staircase = staircase;
+                                newModuleWrapper.module = staircase;
                                 break;
                             }
                             case abstractreps.ManagementUnit.ROOM: {
@@ -177,16 +179,16 @@ public class NewFormatUtil {
                                 room.name = oldManagementUnit.room.sName;
                                 room.schoolClassName = oldManagementUnit.room.sClass;
 
-                                newManagementUnit.room = room;
+                                newModuleWrapper.module = room;
                                 break;
                             }
                         }
-                        newManagmentUnits.add(newManagementUnit);
+                        newManagmentUnits.add(newModuleWrapper);
                     }
                     newWalk.name = oldWalk.sName;
 
                     Collections.reverse(newManagmentUnits);
-                    newWalk.managementUnits = newManagmentUnits;
+                    newWalk.moduleWrappers = newManagmentUnits;
                     newWalks.add(newWalk);
                 }
 

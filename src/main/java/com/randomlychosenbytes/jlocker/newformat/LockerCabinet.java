@@ -2,10 +2,9 @@ package com.randomlychosenbytes.jlocker.newformat;
 
 import com.google.gson.annotations.Expose;
 
-import javax.swing.*;
 import java.util.List;
 
-public class LockerCabinet extends JPanel {
+public class LockerCabinet extends Module {
 
     @Expose
     public List<Locker> lockers;
