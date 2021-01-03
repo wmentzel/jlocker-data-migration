@@ -142,8 +142,8 @@ public class DataMigrationTest {
     @Test
     public void shouldHaveCorrectDataForLocker1() {
         Locker locker = buildings.get(0).floors.get(0).walks.get(0).moduleWrappers.get(0).getLockerCabinet().lockers.get(0);
-        assertEquals("Peggy", locker.pupil.lastName);
-        assertEquals("Olsen", locker.pupil.firstName);
+        assertEquals("Olsen", locker.pupil.lastName);
+        assertEquals("Peggy", locker.pupil.firstName);
         assertEquals("11", locker.pupil.schoolClassName);
         assertEquals(200, locker.pupil.heightInCm);
         assertEquals("This is some note!", locker.note);
@@ -168,8 +168,8 @@ public class DataMigrationTest {
         Locker locker = buildings.get(0).floors.get(0).walks.get(0).moduleWrappers.get(0).getLockerCabinet().lockers.get(1);
         assertNotNull(locker.encryptedCodes);
 
-        assertEquals("Don", locker.pupil.lastName);
-        assertEquals("Draper", locker.pupil.firstName);
+        assertEquals("Draper", locker.pupil.lastName);
+        assertEquals("Don", locker.pupil.firstName);
         assertEquals("01.01.2021", locker.pupil.rentedFromDate);
         assertEquals("31.12.2022", locker.pupil.rentedUntilDate);
         assertEquals("12", locker.pupil.schoolClassName);
