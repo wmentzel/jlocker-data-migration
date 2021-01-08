@@ -1,7 +1,6 @@
+import java.io.Console;
 import java.io.File;
-import java.util.Scanner;
 
-import static java.lang.System.in;
 import static java.lang.System.out;
 
 /**
@@ -12,16 +11,20 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(in);
+        Console console = System.console();
+
+        if (console == null) {
+            System.err.println("Error: Please run this app in a proper terminal.");
+            return;
+        }
 
         out.println("Super User password: ");
-        String superUserPassword = scanner.nextLine();
+        String superUserPassword = new String(console.readPassword());
 
         out.println("Restricted User password: ");
-        String restrictedUserPassword = scanner.nextLine();
+        String restrictedUserPassword = new String(console.readPassword());
 
         File appDir = Util.getAppDir(true);
-        out.println("* Program directory is: \"" + appDir.getAbsolutePath() + "\"");
 
         File oldJLockerDatFile = new File(appDir, "jlocker.dat");
         OldData oldData = OldFormatUtil.loadData(oldJLockerDatFile, superUserPassword, restrictedUserPassword);
@@ -38,6 +41,6 @@ public class Main {
                 newData.superUser,
                 newData.restrictedUser
         );
-        out.println("* File conversion successfully completed. The new file can be found here: \"" + newJLockerDatFile.getAbsolutePath() + "\"");
+        out.println("File conversion successfully completed. The new file can be found here: \"" + newJLockerDatFile.getAbsolutePath() + "\"");
     }
 }

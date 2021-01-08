@@ -22,8 +22,6 @@ public class NewFormatUtil {
 
     public static NewData loadFromCustomFile(File file, String superUserPassword, String restrictedUserPassword) {
 
-        System.out.print("* reading " + file.getName() + "... ");
-
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
         try (Reader reader = new FileReader(file)) {
