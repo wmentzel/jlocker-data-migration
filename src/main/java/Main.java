@@ -33,7 +33,7 @@ public class Main {
 
         NewData newData = NewFormatUtil.convert(oldData, superUserPassword, restrictedUserPassword, oldData.users.get(0).getSecretKeys(superUserPassword).first);
 
-        com.randomlychosenbytes.jlocker.newformat.NewFormatUtil.saveData(
+        NewFormatUtil.saveData(
                 newJLockerDatFile, superUserPassword, restrictedUserPassword,
                 newData.buildings,
                 newData.settings,

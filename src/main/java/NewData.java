@@ -1,4 +1,5 @@
-import com.randomlychosenbytes.jlocker.newformat.*;
+
+import com.randomlychosenbytes.jlocker.model.*;
 
 import java.util.List;
 

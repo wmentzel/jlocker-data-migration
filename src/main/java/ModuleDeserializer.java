@@ -1,5 +1,3 @@
-package com.randomlychosenbytes.jlocker.newformat;
-
 import com.google.gson.*;
 
 import java.lang.reflect.Type;

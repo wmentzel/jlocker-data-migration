@@ -7,7 +7,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-import static com.randomlychosenbytes.jlocker.newformat.NewFormatUtil.getHash;
+import static com.randomlychosenbytes.jlocker.utils.CryptoKt.getHash;
 
 public class User extends Entity {
     /**
