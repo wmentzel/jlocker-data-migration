@@ -1,4 +1,5 @@
-/target
 /.idea/
-/jLocker.iml
 /src/test/data/jlocker.json
+
+/build
+.gradle
