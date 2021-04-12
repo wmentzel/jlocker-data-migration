@@ -1,3 +1,5 @@
+package main;
+
 import nonabstractreps.Building;
 import nonabstractreps.Task;
 import nonabstractreps.User;

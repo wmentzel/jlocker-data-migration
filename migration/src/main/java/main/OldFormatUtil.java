@@ -1,5 +1,6 @@
+package main;
+
 import nonabstractreps.Building;
-import nonabstractreps.Pair;
 import nonabstractreps.Task;
 import nonabstractreps.User;
 
@@ -24,9 +25,6 @@ import java.util.TreeMap;
  */
 public class OldFormatUtil {
 
-    private OldFormatUtil() {
-    }
-
     public static OldData loadData(File jlockerDatFile, String superUserPassword, String restrictedUserPassword) {
 
         List<User> users;
@@ -43,20 +41,19 @@ public class OldFormatUtil {
             tasks = (LinkedList<Task>) ois.readObject();
             settings = (TreeMap) ois.readObject();
         } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
+            throw new RuntimeException(ex);
         }
 
         User superUser = users.get(0);
         User restrictedUser = users.get(1);
 
-        Pair<SecretKey, SecretKey> superUserKeys = superUser.getSecretKeys(superUserPassword);
+        Pair<SecretKey, SecretKey> superUserKeys = NewFormatUtil.getSecretKeys(superUserPassword, superUser);
 
         if (superUserKeys.first == null || superUserKeys.second == null) {
             throw new RuntimeException("Super user password does not match");
         }
 
-        Pair<SecretKey, SecretKey> userKeys = restrictedUser.getSecretKeys(restrictedUserPassword);
+        Pair<SecretKey, SecretKey> userKeys = NewFormatUtil.getSecretKeys(restrictedUserPassword, restrictedUser);
 
         if (userKeys.second == null) {
             throw new RuntimeException("Restricted user password does not match");

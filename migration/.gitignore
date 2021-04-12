@@ -1,0 +1,10 @@
+# Gradle
+/build
+../legacy-build/.gradle
+
+# IntelliJ
+/.idea/
+/jLocker.iml
+/out
+
+src/main/java/com

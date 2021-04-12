@@ -1,4 +1,4 @@
-package nonabstractreps;
+package main;
 
 /**
  * Sometimes a map with a single element is needed. Java has no object like this
