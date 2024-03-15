@@ -14,6 +14,8 @@ application {
     mainClass.set("MainKt")
 }
 
+version = "1.0-SNAPSHOT"
+
 dependencies {
     implementation("com.google.code.gson:gson:2.3.1")
     implementation("com.google.guava:guava:20.0")
