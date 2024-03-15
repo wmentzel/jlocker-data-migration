@@ -39,4 +39,17 @@ tasks {
     "wrapper"(Wrapper::class) {
         gradleVersion = "7.0"
     }
+
+    register("copyStuff") {
+
+        val src = "${project.buildDir}/../../../jlocker/src/main/java/com/randomlychosenbytes/jlocker"
+        val destination = "${project.buildDir}/../src/main/java/com/randomlychosenbytes/jlocker"
+
+        println("Copying ${file(src)} to ${file(destination)}")
+
+        copy {
+            from(src)
+            into(destination)
+        }
+    }
 }
