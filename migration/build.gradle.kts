@@ -53,8 +53,7 @@ tasks {
         val src = "${project.buildDir}/../../../jlocker/src/main/java/com/randomlychosenbytes/jlocker"
         val destination = "${project.buildDir}/../src/main/java/com/randomlychosenbytes/jlocker"
 
-        println(file(src))
-        println(file(destination))
+        println("Copying ${file(src)} to ${file(destination)}")
 
         copy {
             from(src)
