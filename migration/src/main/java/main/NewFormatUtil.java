@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.randomlychosenbytes.jlocker.ModuleDeserializer;
 import com.randomlychosenbytes.jlocker.model.*;
+import com.randomlychosenbytes.jlocker.model.Module;
 
 import javax.crypto.*;
 import javax.crypto.spec.DESKeySpec;
@@ -269,7 +270,7 @@ public class NewFormatUtil {
 
                     com.randomlychosenbytes.jlocker.model.Walk newWalk = new com.randomlychosenbytes.jlocker.model.Walk(oldWalk.sName);
 
-                    List<com.randomlychosenbytes.jlocker.model.ModuleWrapper> newManagmentUnits = new LinkedList<>();
+                    List<com.randomlychosenbytes.jlocker.model.Module> newManagmentUnits = new LinkedList<>();
                     for (ManagementUnit oldManagementUnit : oldWalk.mus) {
 
                         switch (oldManagementUnit.mType) {
@@ -316,24 +317,24 @@ public class NewFormatUtil {
 
 
                                 newCabinet.setLockers(lockers);
-                                newManagmentUnits.add(new ModuleWrapper(newCabinet));
+                                newManagmentUnits.add(newCabinet);
                                 break;
                             }
                             case ManagementUnit.STAIRCASE: {
                                 com.randomlychosenbytes.jlocker.model.Staircase staircase = new com.randomlychosenbytes.jlocker.model.Staircase(oldManagementUnit.staircase.sName);
-                                newManagmentUnits.add(new ModuleWrapper(staircase));
+                                newManagmentUnits.add(staircase);
                                 break;
                             }
                             case ManagementUnit.ROOM: {
                                 com.randomlychosenbytes.jlocker.model.Room room = new com.randomlychosenbytes.jlocker.model.Room(oldManagementUnit.room.sName, oldManagementUnit.room.sClass);
-                                newManagmentUnits.add(new ModuleWrapper(room));
+                                newManagmentUnits.add(room);
                                 break;
                             }
                         }
                     }
 
                     Collections.reverse(newManagmentUnits);
-                    newWalk.setModuleWrappers(newManagmentUnits);
+                    newWalk.setModules(newManagmentUnits);
                     newWalks.add(newWalk);
                 }
 
