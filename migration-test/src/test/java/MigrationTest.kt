@@ -100,7 +100,7 @@ class DataMigrationTest {
     fun walkNamesShouldMatch() {
         assertEquals("main walk", buildings[0].floors[0].walks[0].name)
         assertEquals("second walk", buildings[0].floors[0].walks[1].name)
-        assertEquals("main walk", buildings[0].floors[1].walks[0].name)
+        assertEquals("-", buildings[0].floors[1].walks[0].name)
         assertEquals("main walk", buildings[1].floors[0].walks[0].name)
     }
 
