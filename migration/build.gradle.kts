@@ -1,13 +1,10 @@
 plugins {
     kotlin("jvm") version "1.6.20"
-    java
     application
-    `maven-publish`
 }
 
 repositories {
     mavenCentral()
-    mavenLocal()
 }
 
 application {
