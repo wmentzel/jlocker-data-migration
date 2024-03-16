@@ -1,16 +1,9 @@
 plugins {
     kotlin("jvm") version "1.6.20"
-    application
-    java
-    `maven-publish`
 }
 
 repositories {
     mavenCentral()
-}
-
-application {
-    mainClass.set("com.randomlychosenbytes.jlocker.MainKt")
 }
 
 dependencies {
