@@ -26,8 +26,6 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.0.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.0.0")
     testImplementation(kotlin("test"))
-    testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
-    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
 }
 
 tasks.withType<Test>().configureEach {
