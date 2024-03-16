@@ -19,12 +19,14 @@ version = "1.0-SNAPSHOT"
 dependencies {
 
     // This is needed because code which uses jGraphT is copied along
-    implementation("org.jgrapht:jgrapht-ext:1.0.0") // leave at 1.0.0, breaking changes
-    implementation("org.jgrapht:jgrapht-core:1.0.0") // leave at 1.0.0, breaking changes
+    // leave at 1.0.0, breaking changes
+    implementation("org.jgrapht:jgrapht-ext:1.0.0")
+    implementation("org.jgrapht:jgrapht-core:1.0.0")
 
-    implementation("com.google.code.gson:gson:2.10.1")
-    implementation("com.google.guava:guava:33.0.0-jre")
-    implementation("jakarta.xml.bind:jakarta.xml.bind-api:4.0.1")
+    // Don't bump those! Higher versions will not be compatible with Java 7.
+    implementation("com.google.code.gson:gson:2.3.1")
+    implementation("com.google.guava:guava:20.0")
+    implementation("jakarta.xml.bind:jakarta.xml.bind-api:2.3.3")
 }
 
 tasks {
