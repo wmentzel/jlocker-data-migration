@@ -32,7 +32,6 @@ class DataMigrationTest {
         val superUserPassword = "11111111"
         val restrictedUserPassword = "22222222"
 
-
         val classloader = Thread.currentThread().contextClassLoader
         val inputStream: InputStream = classloader.getResourceAsStream("jlocker.json")
 
