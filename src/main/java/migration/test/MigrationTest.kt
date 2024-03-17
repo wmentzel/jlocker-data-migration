@@ -1,9 +1,7 @@
-import NewFormatUtil.decrypt
-import NewFormatUtil.decryptKeyWithString
+package migration.test
+
 import migration.migrate
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
+import migration.test.NewFormatUtil.decrypt
 import javax.crypto.SecretKey
 import kotlin.test.*
 import com.randomlychosenbytes.jlocker.model.Building as NewBuilding
@@ -15,8 +13,6 @@ import com.randomlychosenbytes.jlocker.model.Settings as NewSettings
 import com.randomlychosenbytes.jlocker.model.Staircase as NewStaircase
 import com.randomlychosenbytes.jlocker.model.Task as NewTask
 
-
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class DataMigrationTest {
 
     private lateinit var buildings: List<NewBuilding>
@@ -24,7 +20,6 @@ class DataMigrationTest {
     private lateinit var settings: NewSettings
     private lateinit var superUserKey: SecretKey
 
-    @BeforeAll
     fun setup() {
 
         val superUserPassword = "11111111"
@@ -43,36 +38,31 @@ class DataMigrationTest {
         val newDataLoadedFromFile =
             NewFormatUtil.loadFromCustomFile(outputJsonFile, superUserPassword, restrictedUserPassword)
         superUserKey =
-            decryptKeyWithString(newDataLoadedFromFile.superUser.encryptedSuperUMasterKeyBase64, superUserPassword)
+            NewFormatUtil.decryptKeyWithString(newDataLoadedFromFile.superUser.encryptedSuperUMasterKeyBase64, superUserPassword)
         buildings = newDataLoadedFromFile.buildings
         tasks = newDataLoadedFromFile.tasks
         settings = newDataLoadedFromFile.settings
     }
 
-    @Test
     fun numberOfBuildingsShouldBeCorrect() {
         assertEquals(2, buildings.size)
     }
 
-    @Test
     fun numberOfFloorsShouldBeCorrect() {
         assertEquals(2, buildings[0].floors.size)
         assertEquals(1, buildings[1].floors.size)
     }
 
-    @Test
     fun numberOfWalksShouldBeCorrect() {
         assertEquals(2, buildings[0].floors[0].walks.size)
         assertEquals(1, buildings[0].floors[1].walks.size)
         assertEquals(1, buildings[1].floors[0].walks.size)
     }
 
-    @Test
     fun numberOfManagementUnitsShouldBeCorrect() {
         assertEquals(5, buildings[0].floors[0].walks[0].modules.size)
     }
 
-    @Test
     fun numberOfLockersShouldBeCorrect() {
         val modules: List<ModuleWrapper> = buildings[0].floors[0].walks[0].modules
         assertEquals(3, (modules[2] as NewLockerCabinet).lockers.size)
@@ -80,20 +70,17 @@ class DataMigrationTest {
         assertEquals(3, (modules[0] as NewLockerCabinet).lockers.size)
     }
 
-    @Test
     fun buildingNamesShouldMatch() {
         assertEquals("main building", buildings[0].name)
         assertEquals("second building", buildings[1].name)
     }
 
-    @Test
     fun floorNamesShouldMatch() {
         assertEquals("ground floor", buildings[0].floors[0].name)
         assertEquals("1st floor", buildings[0].floors[1].name)
         assertEquals("ground floor", buildings[1].floors[0].name)
     }
 
-    @Test
     fun walkNamesShouldMatch() {
         assertEquals("main walk", buildings[0].floors[0].walks[0].name)
         assertEquals("second walk", buildings[0].floors[0].walks[1].name)
@@ -101,7 +88,6 @@ class DataMigrationTest {
         assertEquals("main walk", buildings[1].floors[0].walks[0].name)
     }
 
-    @Test
     fun lockerIdsShouldMatch() {
         val cabinet: com.randomlychosenbytes.jlocker.model.LockerCabinet =
             (buildings[0].floors[0].walks[0].modules[0] as com.randomlychosenbytes.jlocker.model.LockerCabinet)
@@ -110,20 +96,17 @@ class DataMigrationTest {
         assertEquals("3", cabinet.lockers[2].id)
     }
 
-    @Test
     fun roomDataShouldMatch() {
         val room: NewRoom = buildings[0].floors[0].walks[0].modules[3] as NewRoom
         assertEquals(room.name, "Some Classroom")
         assertEquals(room.schoolClassName, "12")
     }
 
-    @Test
     fun stairCaseDataShouldMatch() {
         val staircase: NewStaircase = buildings[0].floors[0].walks[0].modules[4] as NewStaircase
         assertEquals("Main Staircase", staircase.name)
     }
 
-    @Test
     fun lockerTypesShouldMatch() {
         val modules: List<ModuleWrapper> = buildings[0].floors[0].walks[0].modules
         assertEquals(modules[0]::class, NewLockerCabinet::class)
@@ -133,7 +116,6 @@ class DataMigrationTest {
         assertEquals(modules[4]::class, NewStaircase::class)
     }
 
-    @Test
     fun shouldHaveCorrectDataForLocker1() {
         val locker: NewLocker =
             (buildings[0].floors[0].walks[0].modules[0] as NewLockerCabinet).lockers[0]
@@ -160,7 +142,6 @@ class DataMigrationTest {
         assertEquals("555555", decrypt(locker.encryptedCodes?.get(4), superUserKey))
     }
 
-    @Test
     fun shouldHaveCorrectDataForLocker2() {
         val locker: NewLocker =
             (buildings[0].floors[0].walks[0].modules[0] as NewLockerCabinet).lockers[1]
@@ -179,7 +160,6 @@ class DataMigrationTest {
         assertEquals("000000", decrypt(locker.encryptedCodes?.get(4), superUserKey))
     }
 
-    @Test
     fun shouldHaveCorrectDataForLocker3() {
         val locker: NewLocker =
             (buildings[0].floors[0].walks[0].modules[0] as NewLockerCabinet).lockers[2]
@@ -189,7 +169,6 @@ class DataMigrationTest {
         assertNull(locker.encryptedCodes)
     }
 
-    @Test
     fun tasksShouldMatch() {
         assertEquals("This is the 1st task!", tasks[0].description)
         assertTrue(tasks[0].isDone)

@@ -25,16 +25,10 @@ dependencies {
     implementation("com.google.guava:guava:20.0")
     implementation("jakarta.xml.bind:jakarta.xml.bind-api:2.3.3")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.0.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.0.0")
-    testImplementation(kotlin("test"))
+    implementation(kotlin("test"))
 }
 
 tasks {
-
-    withType<Test>().configureEach {
-        useJUnitPlatform()
-    }
 
     compileKotlin {
         kotlinOptions.jvmTarget = "1.6" // There is no 1.7

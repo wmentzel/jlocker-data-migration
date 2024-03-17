@@ -2,15 +2,19 @@ package migration
 
 import java.io.File
 import java.util.*
+import kotlin.test.assertEquals
 
 /**
  * This is the main.main windows of the application. It is displayed right after
  * the login-dialog/create new user dialog.i
  */
+
 fun main(args: Array<String>) {
 
     var superUserPassword: String = ""
     var restrictedUserPassword: String = ""
+
+    assertEquals(1, 2)
 
     when (args.first()) {
         "INTERACTIVE" -> {

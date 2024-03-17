@@ -1,3 +1,5 @@
+package migration.test
+
 class NewData {
     lateinit var superUser: com.randomlychosenbytes.jlocker.model.SuperUser
     lateinit var restrictedUser: com.randomlychosenbytes.jlocker.model.RestrictedUser
