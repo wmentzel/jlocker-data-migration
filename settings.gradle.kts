@@ -1,1 +1,1 @@
-rootProject.name = "migration"
+rootProject.name = "jlocker-data-migration"
