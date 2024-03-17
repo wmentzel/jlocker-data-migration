@@ -4,4 +4,4 @@
 /build
 .gradle
 
-src/main
+src/main/java/com/randomlychosenbytes/jlocker
