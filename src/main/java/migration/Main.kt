@@ -30,9 +30,14 @@ fun main(args: Array<String>) {
     val appDir = Util.getAppDir(true)
     println("""* Program directory is: "${appDir.absolutePath}"""")
     val oldJLockerDatFile = File(appDir, "jlocker.dat")
-    val oldData =
-        OldFormatUtil.loadData(oldJLockerDatFile, superUserPassword, restrictedUserPassword)
     val newJLockerDatFile = File(appDir, "jlocker.json")
+    migrate(oldJLockerDatFile, newJLockerDatFile, superUserPassword, restrictedUserPassword)
+    println("""* File conversion successfully completed. The new file can be found here: "${newJLockerDatFile.absolutePath}""")
+}
+
+fun migrate(inputDatFile: File, outputJsonFile: File, superUserPassword: String, restrictedUserPassword: String) {
+    val oldData =
+        OldFormatUtil.loadData(inputDatFile, superUserPassword, restrictedUserPassword)
     val newData = NewFormatUtil.convert(
         oldData,
         superUserPassword,
@@ -40,12 +45,11 @@ fun main(args: Array<String>) {
         NewFormatUtil.getSecretKeys(superUserPassword, oldData.users[0]).first
     )
     NewFormatUtil.saveData(
-        newJLockerDatFile, superUserPassword, restrictedUserPassword,
+        outputJsonFile, superUserPassword, restrictedUserPassword,
         newData.buildings,
         newData.settings,
         newData.tasks,
         newData.superUser,
         newData.restrictedUser
     )
-    println("""* File conversion successfully completed. The new file can be found here: "${newJLockerDatFile.absolutePath}""")
 }

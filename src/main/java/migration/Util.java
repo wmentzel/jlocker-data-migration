@@ -1,7 +1,5 @@
 package migration;
 
-import main.MainKt;
-
 import java.io.File;
 
 public class Util {

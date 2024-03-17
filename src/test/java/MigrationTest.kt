@@ -1,17 +1,15 @@
 import NewFormatUtil.decrypt
 import NewFormatUtil.decryptKeyWithString
+import migration.migrate
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import java.io.FileOutputStream
-import java.io.InputStream
-import java.io.OutputStream
 import javax.crypto.SecretKey
 import kotlin.test.*
-import com.randomlychosenbytes.jlocker.model.Module as ModuleWrapper
 import com.randomlychosenbytes.jlocker.model.Building as NewBuilding
 import com.randomlychosenbytes.jlocker.model.Locker as NewLocker
 import com.randomlychosenbytes.jlocker.model.LockerCabinet as NewLockerCabinet
+import com.randomlychosenbytes.jlocker.model.Module as ModuleWrapper
 import com.randomlychosenbytes.jlocker.model.Room as NewRoom
 import com.randomlychosenbytes.jlocker.model.Settings as NewSettings
 import com.randomlychosenbytes.jlocker.model.Staircase as NewStaircase
@@ -32,18 +30,18 @@ class DataMigrationTest {
         val superUserPassword = "11111111"
         val restrictedUserPassword = "22222222"
 
-        val classloader = Thread.currentThread().contextClassLoader
-        val inputStream: InputStream = classloader.getResourceAsStream("jlocker.json")
+        val outputJsonFile = createTempFile("jlocker.json")
+        migrate(
+            inputDatFile = getResourceAsFile("jlocker.dat"),
+            outputJsonFile = outputJsonFile,
+            superUserPassword = superUserPassword,
+            restrictedUserPassword = restrictedUserPassword
+        )
 
-        val newJLockerDatFile = createTempFile("jlocker", "newformat")
-        val outStream: OutputStream = FileOutputStream(newJLockerDatFile)
-
-        outStream.write(inputStream.readAllBytes())
-        outStream.close()
-
+        println(outputJsonFile.readText())
 
         val newDataLoadedFromFile =
-            NewFormatUtil.loadFromCustomFile(newJLockerDatFile, superUserPassword, restrictedUserPassword)
+            NewFormatUtil.loadFromCustomFile(outputJsonFile, superUserPassword, restrictedUserPassword)
         superUserKey =
             decryptKeyWithString(newDataLoadedFromFile.superUser.encryptedSuperUMasterKeyBase64, superUserPassword)
         buildings = newDataLoadedFromFile.buildings
